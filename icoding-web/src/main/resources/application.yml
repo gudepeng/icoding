@@ -1,0 +1,17 @@
+server:
+  port: 8081
+  contextPath: /
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapperLocations: classpath*:top/icoding/**/mapper/*Mapper.xml
+spring:
+  http:
+    encoding:
+      charset: utf8
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/icoding?characterEncoding=utf8
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+ 
