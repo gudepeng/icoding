@@ -44,4 +44,13 @@ public class UserServiceImpl implements UserService {
 		return usermapper.insertUser(user);
 	}
 
+	@Override
+	public UserVo getUserByUserid(int userId) {
+		List<UserVo> users = usermapper.selectUserByUserid(userId);
+		if(users.size()==0){
+			return null;
+		}
+		return users.get(0);
+	}
+
 }

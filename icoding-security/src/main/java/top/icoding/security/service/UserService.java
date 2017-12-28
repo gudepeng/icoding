@@ -25,7 +25,13 @@ public interface UserService {
 	 * @return 返回用户集合
 	 * */
 	UserVo getUserByUsergithub(GithubUser usergithub);
-	
+	/**
+	 * 根据usergithub获取user
+	 * 
+	 * @param userName 用户名
+	 * @return 返回用户集合
+	 * */
+	UserVo getUserByUserid(int userId);
 	/**
 	 * 创建用户
 	 * 
