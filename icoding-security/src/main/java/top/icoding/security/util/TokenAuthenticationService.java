@@ -29,7 +29,7 @@ public class TokenAuthenticationService {
 		// 生成JWT
 		String JWT = Jwts.builder()
 				// 保存权限（角色）
-				.claim("authorities", "ROLE_ADMIN,AUTH_WRITE")
+				.claim("authorities", "ROLE_ADMIN,AUTH_WRITE,AUTH_LOGIN")
 				// 用户名写入标题
 				.setSubject(username)
 				// 有效期设置

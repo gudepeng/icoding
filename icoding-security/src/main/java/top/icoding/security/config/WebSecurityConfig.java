@@ -30,15 +30,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 				// 对请求进行认证
 				.authorizeRequests()
-				// 所有 / 的所有请求 都放行
-				.antMatchers("/index.html","/static/**","/webjars/**/*","/swagger-ui.html","/swagger-resources","/v2/api-docs","/images/**/*").permitAll()
-				// 所有 /login 的POST请求 都放行
-				.antMatchers("/login","/login/**")
-				.permitAll()
 				// 权限检查
-				//.antMatchers("/hello").hasAuthority("AUTH_WRITE")
-				// 角色检查 
-				//.antMatchers("/world").hasRole("ADMIN")
+				.antMatchers("/like").hasAuthority("AUTH_LOGIN")
+				// 所有 / 的所有请求 都放行
+				.antMatchers("/**/*").permitAll()
 				// 所有请求需要身份认证
 				.anyRequest().authenticated().and()
 				// 添加一个过滤器 所有访问 /login 的请求交给 JWTLoginFilter 来处理 这个类处理所有的JWT相关内容
