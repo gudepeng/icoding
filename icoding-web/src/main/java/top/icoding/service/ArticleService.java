@@ -26,4 +26,12 @@ public interface ArticleService {
 	 * @return 返回文章信息
 	 * */
 	ArticleVo getArticleById(int articleId);
+	
+	/**
+	 * 根据id删除文章
+	 * 
+	 * @param articleId    文章主键
+	 * @return 返回删除状态
+	 * */
+	void delArticleById(int articleId);
 }

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import top.icoding.exception.ArticleException;
 import top.icoding.service.ArticleService;
 import top.icoding.util.ReturnMessage;
 import top.icoding.vo.ArticleVo;
@@ -22,7 +24,7 @@ import top.icoding.vo.ArticleVo;
  * @date 2017年11月20日 下午3:00:04
  */
 @RestController
-@RequestMapping(value = "/articles", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/article", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ArticleController {
 	
 	@Autowired
@@ -43,12 +45,24 @@ public class ArticleController {
 		return new ReturnMessage("true", articles);
 	}
 
-	@ApiOperation(value = "获取文章", notes = "根据id获取文章", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ApiOperation(value = "获取文章", notes = "根据id获取文章", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiImplicitParam(name = "articleId", value = "文章id", required = true, dataType = "int", paramType = "path")
-	@GetMapping("/{articleId}")
-	public ReturnMessage getArticles(@PathVariable("articleId") int articleId) {
+	@GetMapping("/{articleId:\\d}")
+	public ReturnMessage getArticle(@PathVariable("articleId") int articleId) {
 		ArticleVo articles = articleservice.getArticleById(articleId);
 		return new ReturnMessage("true", articles);
 	}
-
+	
+	@ApiOperation(value = "获取文章", notes = "根据id删除文章", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ApiImplicitParam(name = "articleId", value = "文章id", required = true, dataType = "int", paramType = "path")
+	@DeleteMapping("/{articleId:\\d}")
+	public ReturnMessage delArticles(@PathVariable("articleId") int articleId) {
+		try{
+			articleservice.delArticleById(articleId);
+		}catch(ArticleException e){
+			return new ReturnMessage("false");
+		}
+		
+		return new ReturnMessage("true", null);
+	}
 }

@@ -16,4 +16,7 @@ public interface ArticleLikeMapper {
 	
 	@Delete("delete from article_like where like_id = #{likeId}")
 	int deleteArticleLike(int likeId);
+	
+	@Delete("delete from article_like where article_id = #{articleId}")
+	int deleteArticleLikeByArticleId(int articleId);
 }

@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import top.icoding.exception.ArticleException;
 import top.icoding.service.ArticleService;
+import top.icoding.service.impl.dao.ArticleLikeMapper;
 import top.icoding.service.impl.dao.ArticleMapper;
 import top.icoding.util.Page;
 import top.icoding.vo.ArticleVo;
@@ -19,6 +22,8 @@ import top.icoding.vo.ArticleVo;
 public class ArticleServiceImpl implements ArticleService{
 	@Autowired
 	private ArticleMapper articlemapper;
+	@Autowired
+	private ArticleLikeMapper articlelikemapper;
 	
 	@Override
 	public Map<String,Object> getArticles(int currentPage, Integer pageNumber,Integer sortId,Integer userId) {
@@ -40,6 +45,19 @@ public class ArticleServiceImpl implements ArticleService{
 		ArticleVo article = articlemapper.selectByPrimaryKey(articleId);
 		articlemapper.addArticleClickByPrimaryKey(articleId);
 		return article;
+	}
+
+	@Override
+	@Transactional
+	public void delArticleById(int articleId) {
+		int a=articlemapper.delArticleById(articleId);
+		if(a!=1){
+			throw new ArticleException();
+		}
+		int b =articlelikemapper.deleteArticleLikeByArticleId(articleId);
+		if(b!=1){
+			throw new ArticleException();
+		}
 	}
 
 }

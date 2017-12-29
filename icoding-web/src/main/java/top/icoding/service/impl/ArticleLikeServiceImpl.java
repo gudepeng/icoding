@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import top.icoding.exception.ArticleException;
 import top.icoding.service.ArticleLikeService;
@@ -24,6 +25,7 @@ public class ArticleLikeServiceImpl implements ArticleLikeService{
 	private ArticleLikeMapper articlelikemapper;
 
 	@Override
+	@Transactional
 	public int like(int articleId, int userId) {
 		int a = articlemapper.addArticleLikeByPrimaryKey(articleId);
 		if(a!=1){
@@ -38,6 +40,7 @@ public class ArticleLikeServiceImpl implements ArticleLikeService{
 	}
 
 	@Override
+	@Transactional
 	public void unlike(int articleId,int likeId) {
 		int a = articlemapper.cutArticleLikeByPrimaryKey(articleId);
 		if(a!=1){

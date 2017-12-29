@@ -3,6 +3,7 @@ package top.icoding.service.impl.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -65,15 +66,17 @@ public interface ArticleMapper {
 	@Select("<script> " + "select article_id,article_title,article_tag,sort_id,article_summary,article_titleimage"
 			+ ",article_content,user_id,user_name,article_time,article_click,article_like,article_comment,article_up "
 			+ "from article where article_id = #{articleId} " + "</script> ")
-	ArticleVo selectByPrimaryKey(Integer articleId);
+	ArticleVo selectByPrimaryKey(int articleId);
 	
 	@Update("update article set article_click=article_click+1 where article_id=#{articleId}")
-	int addArticleClickByPrimaryKey(Integer articleId);
+	int addArticleClickByPrimaryKey(int articleId);
 	
 	@Update("update article set article_like=article_like+1 where article_id=#{articleId}")
-	int addArticleLikeByPrimaryKey(Integer articleId);
+	int addArticleLikeByPrimaryKey(int articleId);
 	
 	@Update("update article set article_like=article_like-1 where article_id=#{articleId}")
-	int cutArticleLikeByPrimaryKey(Integer articleId);
-
+	int cutArticleLikeByPrimaryKey(int articleId);
+	
+	@Delete("delete form article where article_id=#{articleId}")
+	int delArticleById(int articleId);
 }

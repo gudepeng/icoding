@@ -1,4 +1,4 @@
-package top.icoding.controller;
+package top.icoding.security.controller;
 
 import javax.validation.Valid;
 import javax.ws.rs.QueryParam;
@@ -41,7 +41,7 @@ public class UserController {
 	@ApiOperation(value = "获取用户信息", notes = "获取用户信息", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiImplicitParam(name = "userId", value = "用户主键", required = true, dataType = "int", paramType = "query")
 	@GetMapping
-	public ReturnMessage getUser(@QueryParam("userId") Integer userId) {
+	public ReturnMessage getUserInfo(@QueryParam("userId") Integer userId) {
 		UserVo userVo = userservice.getUserByUserid(userId);
 		return new ReturnMessage("成功", userVo);
 	}

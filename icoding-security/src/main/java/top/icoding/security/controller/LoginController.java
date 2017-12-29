@@ -34,10 +34,8 @@ public class LoginController {
 	@Autowired
 	private UserService userservice;
 
-	@GetMapping
-	@RequestMapping(value = "/github", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public void insertUser(@QueryParam("code") String code,HttpServletResponse response) {
-		System.out.println(code);
+	@GetMapping("/github")
+	public void githubUser(String code,HttpServletResponse response) {
 		String resultInfo = null;
 		try {
 			Map<String, String> map = new HashMap<>();
