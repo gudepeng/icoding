@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -31,17 +32,17 @@ public interface ArticleMapper {
 			@Result(property = "articleTag", column = "article_tag"), @Result(property = "sortId", column = "sort_id"),
 			@Result(property = "articleSummary", column = "article_summary"),
 			@Result(property = "articleTitleimage", column = "article_titleimage"),
-			@Result(property = "userId", column = "user_id"), @Result(property = "userName", column = "user_name"),
+			@Result(property = "userId", column = "user_id"), 
 			@Result(property = "articleTime", column = "article_time"),
 			@Result(property = "articleClick", column = "article_click"),
 			@Result(property = "articleLike", column = "article_like"),
 			@Result(property = "articleComment", column = "article_comment"),
-			@Result(property = "articleUp", column = "article_up")})
+			@Result(property = "articleUp", column = "article_up") })
 	@Select("<script> " + "select article_id,article_title,article_tag,sort_id,article_summary,article_titleimage"
-			+ ",user_id,user_name,article_time,article_click,article_like,article_comment,article_up "
+			+ ",user_id,article_time,article_click,article_like,article_comment,article_up "
 			+ "from article where 1 = 1 " + "	<if test='sortId != null'> " + "		and sort_id = #{sortId} "
-			+ " </if> " + "	<if test='userId != null'> " + "		and user_id = #{userId} " + " </if> "
-			+ "order by article_time desc" + "</script> ")
+			+ " </if> " + "	<if test='userId != null'> " + " and user_id = #{userId} " + " </if> "
+			+ " order by article_time desc" + "</script> ")
 	List<ArticleVo> selectArticlesBySortIdByPage(Map map);
 
 	/**
@@ -57,26 +58,44 @@ public interface ArticleMapper {
 			@Result(property = "articleSummary", column = "article_summary"),
 			@Result(property = "articleTitleimage", column = "article_titleimage"),
 			@Result(property = "articleContent", column = "article_content"),
-			@Result(property = "userId", column = "user_id"), @Result(property = "userName", column = "user_name"),
+			@Result(property = "userId", column = "user_id"), 
 			@Result(property = "articleTime", column = "article_time"),
 			@Result(property = "articleClick", column = "article_click"),
 			@Result(property = "articleLike", column = "article_like"),
 			@Result(property = "articleComment", column = "article_comment"),
-			@Result(property = "articleUp", column = "article_up")})
+			@Result(property = "articleUp", column = "article_up") })
 	@Select("<script> " + "select article_id,article_title,article_tag,sort_id,article_summary,article_titleimage"
-			+ ",article_content,user_id,user_name,article_time,article_click,article_like,article_comment,article_up "
+			+ ",article_content,user_id,article_time,article_click,article_like,article_comment,article_up "
 			+ "from article where article_id = #{articleId} " + "</script> ")
 	ArticleVo selectByPrimaryKey(int articleId);
-	
+
 	@Update("update article set article_click=article_click+1 where article_id=#{articleId}")
 	int addArticleClickByPrimaryKey(int articleId);
-	
+
 	@Update("update article set article_like=article_like+1 where article_id=#{articleId}")
 	int addArticleLikeByPrimaryKey(int articleId);
-	
+
 	@Update("update article set article_like=article_like-1 where article_id=#{articleId}")
 	int cutArticleLikeByPrimaryKey(int articleId);
-	
-	@Delete("delete form article where article_id=#{articleId}")
+
+	@Delete("delete from article where article_id=#{articleId}")
 	int delArticleById(int articleId);
+
+	@Insert("insert into article (article_title,article_tag,sort_id,article_summary,article_titleimage"
+			+ ",user_id,article_time,article_click,article_like,article_comment,article_up,article_content) "
+			+ "values(#{articleTitle},#{articleTag},#{sortId},#{articleSummary},#{articleTitleimage}"
+			+ ",#{userId},#{articleTime},#{articleClick},#{articleLike},#{articleComment},#{articleUp},#{articleContent})")
+	int insertArticle(ArticleVo articleVo);
+
+	@Update("<script> update article <set >"
+			+ " <if test='articleTitle != null' >article_title = #{articleTitle},</if>"
+			+ " <if test='articleTag != null' >article_tag = #{articleTag},</if>"
+			+ " <if test='sortId != null' >sort_id = #{sortId},</if>"
+			+ " <if test='articleSummary != null' >article_summary = #{articleSummary},</if>"
+			+ " <if test='articleTitleimage != null' >article_titleimage = #{articleTitleimage},</if>"
+			+ " <if test='articleTime != null' >article_time = #{articleTime},</if>"
+			+ " <if test='articleUp != null' >article_up = #{articleUp},</if>"
+			+ " <if test='articleContent != null' >article_content = #{articleContent},</if>"
+			+ " </set> where article_id = #{articleId}</script>")
+	int updateArticle(ArticleVo articleVo);
 }

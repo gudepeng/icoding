@@ -3,6 +3,7 @@ package top.icoding.service.impl.dao;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectKey;
 
 import top.icoding.vo.ArticleLikeVo;
@@ -14,8 +15,8 @@ public interface ArticleLikeMapper {
 	@SelectKey(statement = "select LAST_INSERT_ID()", keyProperty = "likeId", keyColumn = "like_id", resultType = Integer.class, before = false)
     int insertArticleLike(ArticleLikeVo articlelike);
 	
-	@Delete("delete from article_like where like_id = #{likeId}")
-	int deleteArticleLike(int likeId);
+	@Delete("delete from article_like where article_id = #{articleId} and user_id = #{userId}")
+	int deleteArticleLike(@Param("articleId")int articleId,@Param("userId")int userId);
 	
 	@Delete("delete from article_like where article_id = #{articleId}")
 	int deleteArticleLikeByArticleId(int articleId);

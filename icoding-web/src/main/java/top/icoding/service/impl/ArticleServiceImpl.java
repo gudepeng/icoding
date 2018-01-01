@@ -1,5 +1,7 @@
 package top.icoding.service.impl;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +28,7 @@ public class ArticleServiceImpl implements ArticleService{
 	private ArticleLikeMapper articlelikemapper;
 	
 	@Override
-	public Map<String,Object> getArticles(int currentPage, Integer pageNumber,Integer sortId,Integer userId) {
+	public Map<String,Object> getArticles(Integer currentPage, Integer pageNumber,Integer sortId,Integer userId) {
 		Page page = new Page();
 		page.setCurrentPage(currentPage);
 		if(pageNumber!=null){
@@ -41,22 +43,30 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public ArticleVo getArticleById(int articleId) {
-		ArticleVo article = articlemapper.selectByPrimaryKey(articleId);
+	public ArticleVo getArticleInfoById(int articleId) {
 		articlemapper.addArticleClickByPrimaryKey(articleId);
-		return article;
+		return articlemapper.selectByPrimaryKey(articleId);
 	}
 
 	@Override
 	@Transactional
 	public void delArticleById(int articleId) {
-		int a=articlemapper.delArticleById(articleId);
-		if(a!=1){
+		if(articlemapper.delArticleById(articleId)==0){
 			throw new ArticleException();
 		}
-		int b =articlelikemapper.deleteArticleLikeByArticleId(articleId);
-		if(b!=1){
-			throw new ArticleException();
+		articlelikemapper.deleteArticleLikeByArticleId(articleId);
+	}
+
+	@Override
+	public void insertAndUpdateArticle(ArticleVo articleVo) {
+		articleVo.setArticleTime(new Date());
+		if(articleVo.getArticleId()==null){
+			articleVo.setArticleClick(0);
+			articleVo.setArticleLike(0);
+			articleVo.setArticleComment(0);
+			articlemapper.insertArticle(articleVo);
+		}else{
+			articlemapper.updateArticle(articleVo);
 		}
 	}
 

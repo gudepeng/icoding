@@ -24,33 +24,31 @@ import top.icoding.util.ReturnMessage;
 public class ArticleLikeController {
 	@Autowired
 	private ArticleLikeService articlelikeservice;
-	
-	@ApiOperation(value = "点赞功能", notes = "文章添加点赞", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "articleId", value = "文章主键", required = true, dataType = "int", paramType = "query"),
-			@ApiImplicitParam(name = "userId", value = "用户主键", required = true, dataType = "int", paramType = "query") })
+
+	@ApiOperation(value = "点赞功能", notes = "添加文章点赞", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ApiImplicitParam(name = "articleId", value = "文章主键", required = true, dataType = "int", paramType = "query")
 	@PutMapping
-	public ReturnMessage like(@RequestParam(value = "articleId", required = true) Integer articleId,
-			@RequestParam(value = "userId", required = true) Integer userId){
-		try{
-			int id = articlelikeservice.like(articleId, userId);
-			return new ReturnMessage("点赞成功",id);
-		}catch(ArticleException e){
+	public ReturnMessage like(@RequestParam(value = "articleId", required = true) Integer articleId) {
+		Integer userId = 1;
+		try {
+			articlelikeservice.like(articleId, userId);
+			return new ReturnMessage("点赞成功");
+		} catch (ArticleException e) {
+			return new ReturnMessage("点赞失败");
+		}catch (Exception e) {
 			return new ReturnMessage("点赞失败");
 		}
 	}
-	
-	@ApiOperation(value = "点赞功能", notes = "文章删除点赞", httpMethod = "DELETE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "articleId", value = "文章主键", required = true, dataType = "int", paramType = "query"),
-			@ApiImplicitParam(name = "likeId", value = "点赞主键", required = true, dataType = "int", paramType = "query") })
+
+	@ApiOperation(value = "点赞功能", notes = "删除文章点赞", httpMethod = "DELETE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ApiImplicitParam(name = "articleId", value = "文章主键", required = true, dataType = "int", paramType = "query")
 	@DeleteMapping
-	public ReturnMessage unlike(@RequestParam(value = "articleId", required = true) Integer articleId,
-			@RequestParam(value = "likeId", required = true) Integer likeId) {
-		try{
-			articlelikeservice.unlike(articleId,likeId);
-			return new ReturnMessage("取消点赞成功",null);
-		}catch(ArticleException e){
+	public ReturnMessage unlike(@RequestParam(value = "articleId", required = true) Integer articleId) {
+		Integer userId = 1;
+		try {
+			articlelikeservice.unlike(articleId,userId);
+			return new ReturnMessage("取消点赞成功", null);
+		} catch (ArticleException e) {
 			return new ReturnMessage("取消点赞失败");
 		}
 	}

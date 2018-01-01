@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 
-import top.icoding.security.po.GithubUser;
 import top.icoding.security.service.UserService;
 import top.icoding.security.util.HttpClientUtils;
 import top.icoding.security.util.TokenAuthenticationService;
-import top.icoding.vo.UserVo;
+import top.icoding.security.vo.GithubUser;
+import top.icoding.security.vo.UserVo;
 
 /**
  * @author 我是金角大王

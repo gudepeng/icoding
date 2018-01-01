@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import top.icoding.security.service.UserService;
-import top.icoding.vo.UserVo;
+import top.icoding.security.vo.UserVo;
 
 @Service
 public class JWTUserDetailsService implements UserDetailsService {

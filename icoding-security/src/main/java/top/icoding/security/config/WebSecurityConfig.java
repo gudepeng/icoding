@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// 对请求进行认证
 				.authorizeRequests()
 				// 权限检查
-				.antMatchers("/like").hasAuthority("AUTH_LOGIN")
+				/*.antMatchers("/like").hasAuthority("AUTH_LOGIN")*/
 				// 所有 / 的所有请求 都放行
 				.antMatchers("/**/*").permitAll()
 				// 所有请求需要身份认证

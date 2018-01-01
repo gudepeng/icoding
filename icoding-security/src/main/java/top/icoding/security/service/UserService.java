@@ -2,8 +2,8 @@ package top.icoding.security.service;
 
 import java.util.List;
 
-import top.icoding.security.po.GithubUser;
-import top.icoding.vo.UserVo;
+import top.icoding.security.vo.GithubUser;
+import top.icoding.security.vo.UserVo;
 
 
 /**

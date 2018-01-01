@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 
-import top.icoding.vo.UserVo;
+import top.icoding.security.vo.UserVo;
 
 
 /**
@@ -101,8 +101,8 @@ public interface UserMapper {
 	 * @param user 用户类
 	 * @return 返回判断码：0：失败，1：成功
 	 * */
-	@Insert("insert into user (user_name,user_pwd,user_phone,user_email,user_address,user_description,user_rank_id,user_lock)"
-			+ " values(#{userName},#{userPwd},#{userPhone},#{userEmail},#{userAddress},#{userDescription},#{userRankId},#{userLock})")
+	@Insert("insert into user (user_name,user_pwd,user_phone,user_email,user_sex,user_address,user_description,user_image_url,user_rank_id,user_lock)"
+			+ " values(#{userName},#{userPwd},#{userPhone},#{userEmail},#{userSex},#{userAddress},#{userDescription},#{userImageUrl},#{userRankId},#{userLock})")
 	@SelectKey(statement = "select LAST_INSERT_ID()", keyProperty = "userId", keyColumn = "user_id", resultType = Integer.class, before = false)
 	int insertUser(UserVo user);
 

@@ -17,7 +17,7 @@
 		</dependency>
 		<dependency>
 			<groupId>gdp</groupId>
-			<artifactId>icoding-entity</artifactId>
+			<artifactId>icoding-util</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

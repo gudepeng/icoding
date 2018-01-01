@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import top.icoding.security.service.UserService;
+import top.icoding.security.vo.UserVo;
 import top.icoding.util.ReturnMessage;
-import top.icoding.vo.UserVo;
 
 /**
  * @author 我是金角大王

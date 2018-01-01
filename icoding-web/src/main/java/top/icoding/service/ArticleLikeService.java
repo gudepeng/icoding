@@ -11,8 +11,9 @@ public interface ArticleLikeService {
 	 * @param articleId 文章id
 	 * @param userId  用户id
 	 * @return 是否点赞成功
+	 * @throws Exception 
 	 * */
-	int like(int articleId,int userId);
+	void like(int articleId,int userId) throws Exception;
 	
 	/**
 	 * 取消点赞文章
@@ -21,5 +22,5 @@ public interface ArticleLikeService {
 	 * @param likeId  点赞主键
 	 * @return 是否取消点赞成功
 	 * */
-	void unlike(int articleId,int likeId);
+	void unlike(int articleId,int userId);
 }

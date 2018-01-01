@@ -17,7 +17,7 @@ public interface ArticleService {
 	 * @param sortId     文章分类
 	 * @return 返回文章列表和分页信息
 	 * */
-	Map<String,Object> getArticles(int currentPage,Integer pageNumber,Integer sortId,Integer userId);
+	Map<String,Object> getArticles(Integer currentPage,Integer pageNumber,Integer sortId,Integer userId);
 	
 	/**
 	 * 根据id获取文章
@@ -25,7 +25,7 @@ public interface ArticleService {
 	 * @param articleId    文章主键
 	 * @return 返回文章信息
 	 * */
-	ArticleVo getArticleById(int articleId);
+	ArticleVo getArticleInfoById(int articleId);
 	
 	/**
 	 * 根据id删除文章
@@ -34,4 +34,11 @@ public interface ArticleService {
 	 * @return 返回删除状态
 	 * */
 	void delArticleById(int articleId);
+	
+	/**
+	 * 插入或者更新文章
+	 * 
+	 * @param articleVo    文章类
+	 * */
+	void insertAndUpdateArticle(ArticleVo articleVo);
 }

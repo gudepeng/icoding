@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import top.icoding.security.po.GithubUser;
 import top.icoding.security.service.UserService;
 import top.icoding.security.service.impl.dao.UserMapper;
+import top.icoding.security.vo.GithubUser;
+import top.icoding.security.vo.UserVo;
 import top.icoding.util.Const;
-import top.icoding.vo.UserVo;
 
 /**
 * @author 我是金角大王
