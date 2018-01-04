@@ -15,6 +15,6 @@ public class LoginController {
 	@RequestMapping("/login/authority")
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	public String LoginAuthority(){
-		return "没有权限";
+		return "{message:'没有权限'}";
 	}
 }
