@@ -9,13 +9,16 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.social.security.SocialUser;
+import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Service;
 
 import top.icoding.security.service.UserService;
 import top.icoding.security.vo.UserVo;
 
 @Service
-public class JWTUserDetailsService implements UserDetailsService {
+public class IcodingUserDetailsService implements UserDetailsService,SocialUserDetailsService {
 	@Autowired
 	private UserService userservice;
 	
@@ -27,6 +30,12 @@ public class JWTUserDetailsService implements UserDetailsService {
 		}
 		UserVo user=listuser.get(0);
 		return new User(user.getUserName(),user.getUserPwd(), new ArrayList<GrantedAuthority>());
+	}
+
+	@Override
+	public SocialUserDetails loadUserByUserId(String userid) throws UsernameNotFoundException {
+		
+		return new SocialUser(userid,"password", new ArrayList<GrantedAuthority>());
 	}
 
 }

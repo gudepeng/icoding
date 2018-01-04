@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import top.icoding.security.service.UserService;
 import top.icoding.security.service.impl.dao.UserMapper;
-import top.icoding.security.vo.GithubUser;
+import top.icoding.security.social.vo.GithubUser;
 import top.icoding.security.vo.UserVo;
 import top.icoding.util.Const;
 
