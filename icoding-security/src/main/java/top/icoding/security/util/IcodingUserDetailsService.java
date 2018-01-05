@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,8 +35,10 @@ public class IcodingUserDetailsService implements UserDetailsService,SocialUserD
 
 	@Override
 	public SocialUserDetails loadUserByUserId(String userid) throws UsernameNotFoundException {
-		
-		return new SocialUser(userid,"password", new ArrayList<GrantedAuthority>());
+		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();  
+        GrantedAuthority au = new SimpleGrantedAuthority("AUTH_LOGIN"); 
+        list.add(au);
+		return new SocialUser(userid,"password", list);
 	}
 
 }

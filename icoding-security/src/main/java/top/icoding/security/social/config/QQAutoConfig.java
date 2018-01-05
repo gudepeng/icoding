@@ -1,4 +1,4 @@
-package top.icoding.security.config;
+package top.icoding.security.social.config;
 
 import org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter;
 import org.springframework.context.annotation.Configuration;
@@ -7,7 +7,6 @@ import org.springframework.social.connect.ConnectionFactory;
 import top.icoding.security.social.connet.QQConnectionFactory;
 
 /**
- * @author 我是金角大王
  * @date 2018年1月2日 上午9:02:22
  */
 @Configuration
