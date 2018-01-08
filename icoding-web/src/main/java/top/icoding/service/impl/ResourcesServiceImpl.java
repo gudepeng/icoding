@@ -1,12 +1,15 @@
 package top.icoding.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import top.icoding.service.ResourcesService;
 import top.icoding.service.impl.dao.ResourcesMapper;
+import top.icoding.util.Page;
 import top.icoding.vo.ResourcesVo;
 
 /**
@@ -29,8 +32,18 @@ public class ResourcesServiceImpl implements ResourcesService {
 	}
 
 	@Override
-	public List<ResourcesVo> getResourcess(Integer sortId) {
-		return resourcesmapper.selectResourcess(sortId);
+	public Map<String,Object> getResourcess(Integer currentPage, Integer pageNumber,Integer sortId) {
+		
+		Page page = new Page();
+		page.setCurrentPage(currentPage);
+		if(pageNumber!=null){
+			page.setPageNumber(pageNumber);
+		}
+		Map<String,Object> map = new HashMap<>(3);
+		map.put("page", page);
+		map.put("sortId", sortId);
+		map.put("data", resourcesmapper.selectResourcessBySortIdByPage(map));
+		return map;
 	}
 
 }

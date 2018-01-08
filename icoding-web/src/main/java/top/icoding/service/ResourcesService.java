@@ -1,6 +1,7 @@
 package top.icoding.service;
 
 import java.util.List;
+import java.util.Map;
 
 import top.icoding.vo.ResourcesVo;
 
@@ -14,5 +15,5 @@ public interface ResourcesService {
 	
 	ResourcesVo getResourcesInfo(int resourcesId);
 	
-	List<ResourcesVo> getResourcess(Integer sortId);
+	Map<String,Object> getResourcess(Integer currentPage, Integer pageNumber,Integer sortId);
 }

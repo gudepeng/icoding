@@ -6,8 +6,12 @@ public class ResourcesVo {
     private Integer resourcesId;
 
     private String resourcesName;
+    
+    private String resourceDescription;
 
     private Integer sortId;
+    
+    private Integer resourceIntegral;
 
     private String resourcesUrl;
 
@@ -31,12 +35,28 @@ public class ResourcesVo {
 		this.resourcesName = resourcesName;
 	}
 
+	public String getResourceDescription() {
+		return resourceDescription;
+	}
+
+	public void setResourceDescription(String resourceDescription) {
+		this.resourceDescription = resourceDescription;
+	}
+
 	public Integer getSortId() {
 		return sortId;
 	}
 
 	public void setSortId(Integer sortId) {
 		this.sortId = sortId;
+	}
+
+	public Integer getResourceIntegral() {
+		return resourceIntegral;
+	}
+
+	public void setResourceIntegral(Integer resourceIntegral) {
+		this.resourceIntegral = resourceIntegral;
 	}
 
 	public String getResourcesUrl() {
