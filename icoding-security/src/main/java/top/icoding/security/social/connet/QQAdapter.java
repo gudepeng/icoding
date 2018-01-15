@@ -30,14 +30,11 @@ public class QQAdapter implements ApiAdapter<QQService> {
 
 	@Override
 	public UserProfile fetchUserProfile(QQService api) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void updateStatus(QQService api, String message) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

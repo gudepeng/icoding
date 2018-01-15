@@ -42,8 +42,11 @@ public class QQServiceImpl extends AbstractOAuth2ApiBinding implements QQService
 	public QQUser getQQUserInfo() {
 		String url = String.format(URL_GET_USERINFO, appId, openId);
 		String result = getRestTemplate().getForObject(url, String.class);
+		QQUser qquser=null;
 		try {
-			return objectMapper.readValue(result, QQUser.class);
+			qquser = objectMapper.readValue(result, QQUser.class);
+			qquser.setOpenId(openId);
+			return qquser;
 		} catch (Exception e) {
 			throw new RuntimeException("获取个人信息失败");
 		}

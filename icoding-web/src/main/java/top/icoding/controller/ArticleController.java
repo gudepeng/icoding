@@ -2,6 +2,8 @@ package top.icoding.controller;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +30,7 @@ import top.icoding.vo.ArticleVo;
 @RestController
 @RequestMapping(value = "/article", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ArticleController {
-
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());  
 	@Autowired
 	private ArticleService articleservice;
 
@@ -41,6 +43,10 @@ public class ArticleController {
 	@GetMapping
 	public ReturnMessage getArticleList(@RequestParam(defaultValue = "1") Integer currentPage, Integer pageNumber,
 			Integer sortId,Integer userId) {
+		logger.debug("顾得鹏This is a debug message");  
+        logger.info("顾得鹏This is an info message");  
+        logger.warn("顾得鹏This is a warn message");  
+        logger.error("顾得鹏This is an error message"); 
 		Map<String, Object> articles = articleservice.getArticles(currentPage, pageNumber, sortId, userId);
 		return new ReturnMessage("true", articles);
 	}

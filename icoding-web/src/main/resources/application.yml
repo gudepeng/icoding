@@ -1,6 +1,8 @@
 server:
   port: 8081
   contextPath: /
+  session:
+    timeout: 600
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapperLocations: classpath*:top/icoding/**/mapper/*Mapper.xml

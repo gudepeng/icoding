@@ -12,6 +12,7 @@
 		<module>icoding-web</module>
 		<module>icoding-security</module>
 		<module>icoding-util</module>
+		<module>icoding-reptile</module>
 	</modules>
 	
 	<parent>

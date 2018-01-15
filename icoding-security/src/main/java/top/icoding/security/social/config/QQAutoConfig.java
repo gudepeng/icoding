@@ -1,8 +1,16 @@
 package top.icoding.security.social.config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.connect.ConnectionFactory;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionSignUp;
+import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 
 import top.icoding.security.social.connet.QQConnectionFactory;
 
@@ -14,8 +22,23 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
 
 	@Override
 	protected ConnectionFactory<?> createConnectionFactory() {
-		return new QQConnectionFactory("qq", "8347be17a991df62767f",
-				"9f502ba54524fe6f7977db90b8ed38d887adf7d0");
+		return new QQConnectionFactory("qq", "101386962",
+				"2a0f820407df400b84a854d054be8b6a");
+	}
+	
+	@Autowired
+	private DataSource dataSource;
+
+	@Autowired
+	private ConnectionSignUp connectionSignUp;
+
+
+	@Override
+	public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+		JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource,
+				connectionFactoryLocator, Encryptors.noOpText());
+		repository.setConnectionSignUp(connectionSignUp);
+		return repository;
 	}
 
 }

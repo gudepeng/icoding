@@ -13,6 +13,7 @@ import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.security.SpringSocialConfigurer;
+import org.springframework.web.servlet.View;
 
 /**
  * @author 我是金角大王
@@ -41,4 +42,10 @@ public class SocialConfig extends SocialConfigurerAdapter {
 	public SpringSocialConfigurer icodingSpringSocialConfigurer() {
 		return new SpringSocialConfigurer();
 	}
+	
+	@Bean({"connect/githubConnected","connect/githubConnect"})
+	public View IcodingConnectView(){
+		return new IcodingConnectView();
+	}
+	
 }
