@@ -44,8 +44,12 @@ public class SocialConfig extends SocialConfigurerAdapter {
 	}
 	
 	@Bean({"connect/githubConnected","connect/githubConnect"})
-	public View IcodingConnectView(){
+	public View IcodingGithubConnectView(){
 		return new IcodingConnectView();
 	}
 	
+	@Bean({"connect/qqConnected","connect/qqConnect"})
+	public View IcodingQqConnectView(){
+		return new IcodingConnectView();
+	}
 }

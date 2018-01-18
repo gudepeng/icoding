@@ -16,6 +16,8 @@ import org.springframework.web.servlet.view.AbstractView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
+ * 当前绑定第三方组件状态
+ * 
 * @author 我是金角大王
 * @date 2018年1月8日 下午8:02:14
 */

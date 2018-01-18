@@ -9,22 +9,24 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.AbstractView;
 
 /**
-* @author 我是金角大王
-* @date 2018年1月8日 下午10:07:36
-*/
+ * 绑定第三方登录
+ * 
+ * @author 我是金角大王
+ * @date 2018年1月8日 下午10:07:36
+ */
 
-public class IcodingConnectView extends AbstractView{
+public class IcodingConnectView extends AbstractView {
 
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
-		if(model.get("connection")==null){
+		if (model.get("connection") == null) {
 			response.getWriter().write("<h3>解绑成功</h3>");
-		}else{
+		} else {
 			response.getWriter().write("<h3>绑定成功</h3>");
 		}
-		
+
 	}
 
 }

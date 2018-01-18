@@ -1,8 +1,8 @@
 package top.icoding.security.social.provider;
 
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
-import org.springframework.social.oauth2.OAuth2Template;
 
+import top.icoding.security.social.connet.QQOAuth2Template;
 import top.icoding.security.social.service.QQService;
 import top.icoding.security.social.service.impl.QQServiceImpl;
 
@@ -18,7 +18,7 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQService> 
 	private static final String URL_ACCESS_TOKEN = "https://graph.qq.com/oauth2.0/token";
 
 	public QQServiceProvider(String appId,String appSecret) {
-		super(new OAuth2Template(appId, appSecret, URL_AUTHORIZE, URL_ACCESS_TOKEN));
+		super(new QQOAuth2Template(appId, appSecret, URL_AUTHORIZE, URL_ACCESS_TOKEN));
 		this.appId= appId;
 	}
 	

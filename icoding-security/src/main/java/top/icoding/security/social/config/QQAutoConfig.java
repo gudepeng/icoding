@@ -22,8 +22,8 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
 
 	@Override
 	protected ConnectionFactory<?> createConnectionFactory() {
-		return new QQConnectionFactory("qq", "101386962",
-				"2a0f820407df400b84a854d054be8b6a");
+		return new QQConnectionFactory("qq", "101413933",
+				"82e3ef405ef913510dee4c1e7260fe72");
 	}
 	
 	@Autowired

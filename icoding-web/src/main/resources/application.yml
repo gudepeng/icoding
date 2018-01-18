@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 80
   contextPath: /
   session:
     timeout: 600
@@ -10,6 +10,12 @@ spring:
   http:
     encoding:
       charset: utf8
+  session:
+    store-type: redis
+  redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/icoding?characterEncoding=utf8
     username: root
