@@ -8,30 +8,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.social.security.SocialUserDetails;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
-* @author 我是金角大王
-* @date 2018年1月3日 下午1:59:14
-*/
+ * @author 我是金角大王
+ * @date 2018年1月3日 下午1:59:14
+ */
 @Component
 public class IcodingAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-	
+
 	private ObjectMapper objectMapper = new ObjectMapper();
-	
+
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		response.setStatus(500);
-		response.setContentType("application/json");  
-	    response.setCharacterEncoding("utf-8");  
-	    PrintWriter writer = response.getWriter();  
-        writer.write(objectMapper.writeValueAsString(authentication));  
-        writer.flush();  
-        writer.close();  
+		response.setStatus(200);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+		response.setHeader("Access-Control-Max-Age", "3600");
+		response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Authorization");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		PrintWriter writer = response.getWriter();
+		writer.write(objectMapper.writeValueAsString(authentication));
+		writer.flush();
+		writer.close();
 	}
 
 }

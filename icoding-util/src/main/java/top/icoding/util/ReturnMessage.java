@@ -20,12 +20,12 @@ public class ReturnMessage {
 	private Object result;
 
 	public ReturnMessage(String message) {
-		this.status = 0;
+		this.status = 1;
 		this.message = message;
 	}
 
 	public ReturnMessage(String message, Object result) {
-		this.status = 1;
+		this.status = 0;
 		this.message = message;
 		this.result = result;
 	}

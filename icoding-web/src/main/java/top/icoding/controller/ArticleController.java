@@ -2,8 +2,6 @@ package top.icoding.controller;
 
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,8 +51,8 @@ public class ArticleController {
 	@ApiImplicitParam(name = "articleId", value = "文章id", required = true, dataType = "int", paramType = "path")
 	@GetMapping("/{articleId:\\d}")
 	public ReturnMessage getArticleInfo(@PathVariable("articleId") int articleId) {
-		ArticleVo articles = articleservice.getArticleInfoById(articleId);
-		return new ReturnMessage("true", articles);
+			ArticleVo articles = articleservice.getArticleInfoById(articleId);
+			return new ReturnMessage("true", articles);
 	}
 
 	@ApiOperation(value = "文章模块", notes = "根据id删除文章", httpMethod = "DELETE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -8,6 +8,8 @@ public class SortVo {
 	
 	private String sortType;
 	
+	private String sortValue;
+	
 	private String sortName;
 
 	public Integer getSortId() {
@@ -24,6 +26,14 @@ public class SortVo {
 
 	public void setSortType(String sortType) {
 		this.sortType = sortType;
+	}
+	
+	public String getSortValue() {
+		return sortValue;
+	}
+
+	public void setSortValue(String sortValue) {
+		this.sortValue = sortValue;
 	}
 
 	public String getSortName() {

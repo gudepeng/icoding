@@ -10,11 +10,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.social.security.SpringSocialConfigurer;
+import org.springframework.web.cors.CorsUtils;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+	
+	
 	@Autowired
 	private UserDetailsService userDetailsService;
 	@Autowired

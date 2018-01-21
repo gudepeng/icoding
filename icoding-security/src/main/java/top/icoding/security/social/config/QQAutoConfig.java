@@ -19,11 +19,13 @@ import top.icoding.security.social.connet.QQConnectionFactory;
  */
 @Configuration
 public class QQAutoConfig extends SocialAutoConfigurerAdapter {
-
+	
+	@Autowired
+	private IcodingSocialConfig icodingSocialConfig;
+	
 	@Override
 	protected ConnectionFactory<?> createConnectionFactory() {
-		return new QQConnectionFactory("qq", "101413933",
-				"82e3ef405ef913510dee4c1e7260fe72");
+		return new QQConnectionFactory("qq", icodingSocialConfig.getQqAppId(),icodingSocialConfig.getQqAppSecret());
 	}
 	
 	@Autowired

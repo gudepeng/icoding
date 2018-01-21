@@ -20,11 +20,13 @@ import top.icoding.security.social.connet.GithubConnectionFactory;
  */
 @Configuration
 public class GithubAutoConfig extends SocialAutoConfigurerAdapter {
-
+	
+	@Autowired
+	private IcodingSocialConfig icodingSocialConfig;
+	
 	@Override
 	protected ConnectionFactory<?> createConnectionFactory() {
-		return new GithubConnectionFactory("github", "8347be17a991df62767f",
-				"9f502ba54524fe6f7977db90b8ed38d887adf7d0");
+		return new GithubConnectionFactory("github", icodingSocialConfig.getGithubAppId(),icodingSocialConfig.getGithubAppSecret());
 	}
 	
 	@Autowired

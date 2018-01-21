@@ -18,7 +18,8 @@ public interface SortMapper {
 
 	@Results(id = "selectSortByType", value = { @Result(property = "sortId", column = "sort_id", id = true),
 			@Result(property = "sortType", column = "sort_type"),
+			@Result(property = "sortValue", column = "sort_value"),
 			@Result(property = "sortName", column = "sort_name")})
-	@Select("select sort_id,sort_type,sort_name from sort where sort_type = #{sortType}")
+	@Select("select sort_id,sort_type,sort_value,sort_name from sort where sort_type = #{sortType}")
 	List<SortVo> selectSortByType(String sortType);
 }
