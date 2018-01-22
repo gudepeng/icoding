@@ -25,19 +25,6 @@ public class UserServiceImpl implements UserService {
 		return usermapper.selectUserByUsername(userName);
 	}
 	
-	@Override
-	public UserVo getUserByUsergithub(GithubUser usergithub) {
-		List<UserVo> userVo = usermapper.selectUserByUsergithub(usergithub.getLogin());
-		if(userVo.size()==0){
-			UserVo useri=new UserVo();
-			useri.setUserGithub(usergithub.getLogin());
-			useri.setUserRankId(Const.DEFAULT_USERRANKID);
-			useri.setUserLock(Const.DEFAULT_USERLOCK);
-			usermapper.insertUser(useri);
-			return useri;
-		}
-		return userVo.get(0);
-	}
 	
 	@Override
 	public int insertUser(UserVo user) {

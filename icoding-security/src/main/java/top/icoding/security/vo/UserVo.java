@@ -29,17 +29,8 @@ public class UserVo {
     @ApiModelProperty(value = "用户性别", required = false)
     private String userSex;
     
-    @ApiModelProperty(value = "用户QQ用户名", required = false)
-    private String userQq;
-    
-    @ApiModelProperty(value = "用户微信用户名", required = false)
-    private String userWx;
-    
     @ApiModelProperty(value = "用户邮箱地址", required = false)
     private String userEmail;
-    
-    @ApiModelProperty(value = "用户github用户名", required = false)
-    private String userGithub;
     
     @ApiModelProperty(value = "用户地址", required = false)
     private String userAddress;
@@ -96,36 +87,12 @@ public class UserVo {
         this.userSex = userSex == null ? null : userSex.trim();
     }
 
-    public String getUserQq() {
-        return userQq;
-    }
-
-    public void setUserQq(String userQq) {
-        this.userQq = userQq == null ? null : userQq.trim();
-    }
-
-    public String getUserWx() {
-        return userWx;
-    }
-
-    public void setUserWx(String userWx) {
-        this.userWx = userWx == null ? null : userWx.trim();
-    }
-
     public String getUserEmail() {
         return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail == null ? null : userEmail.trim();
-    }
-
-    public String getUserGithub() {
-        return userGithub;
-    }
-
-    public void setUserGithub(String userGithub) {
-        this.userGithub = userGithub == null ? null : userGithub.trim();
     }
 
     public String getUserAddress() {
