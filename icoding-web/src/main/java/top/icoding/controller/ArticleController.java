@@ -63,8 +63,9 @@ public class ArticleController {
 			Map<String,Object> map = new HashMap<>();
 			map.put("id", articles.getArticleId());
 			map.put("name", articles.getArticleTitle());
-			redisserviceimpl.IncrementScore(LocalDate.now().toString(),map, -1);
 			getHotArticle();
+			redisserviceimpl.IncrementScore(LocalDate.now().toString(),map, -1);
+			redisserviceimpl.IncrementScore(LocalDate.now().minusDays(6)+"-"+LocalDate.now(),map, -1);
 			return new ReturnMessage("true", articles);
 	}
 
