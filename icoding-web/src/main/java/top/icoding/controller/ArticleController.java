@@ -1,6 +1,11 @@
 package top.icoding.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,6 +25,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import top.icoding.exception.ArticleException;
 import top.icoding.service.ArticleService;
+import top.icoding.service.impl.RedisServiceImpl;
 import top.icoding.util.ReturnMessage;
 import top.icoding.vo.ArticleVo;
 
@@ -33,6 +39,8 @@ public class ArticleController {
 	
 	@Autowired
 	private ArticleService articleservice;
+	@Autowired
+	private RedisServiceImpl redisserviceimpl;
 
 	@ApiOperation(value = "文章模块", notes = "根据文章分类和用户主键获取分页文章列表", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiImplicitParams({
@@ -52,6 +60,11 @@ public class ArticleController {
 	@GetMapping("/{articleId:\\d}")
 	public ReturnMessage getArticleInfo(@PathVariable("articleId") int articleId) {
 			ArticleVo articles = articleservice.getArticleInfoById(articleId);
+			Map<String,Object> map = new HashMap<>();
+			map.put("id", articles.getArticleId());
+			map.put("name", articles.getArticleTitle());
+			redisserviceimpl.IncrementScore(LocalDate.now().toString(),map, -1);
+			getHotArticle();
 			return new ReturnMessage("true", articles);
 	}
 
@@ -75,5 +88,23 @@ public class ArticleController {
 		//articleVo.setUserId(userDetails.getUserId());
 		articleservice.insertAndUpdateArticle(articleVo);
 		return new ReturnMessage("true", null);
+	}
+	
+	@ApiOperation(value = "文章模块", notes = "获取热门文章", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping("/hot")
+	public ReturnMessage getHotArticle() {
+		String hotsName=LocalDate.now().minusDays(6)+"-"+LocalDate.now();
+		if(redisserviceimpl.exists(hotsName)){
+			Set<Object> hotList = redisserviceimpl.zRange(hotsName,0,9);
+			return new ReturnMessage("true", hotList);
+		}else{
+			List<String> hosts=new ArrayList<>();
+			for(int i=0;i<7;i++){
+				hosts.add(LocalDate.now().minusDays(i).toString());
+			}
+			redisserviceimpl.unionStore(hosts, hotsName);
+			return new ReturnMessage("true", redisserviceimpl.zRange(hotsName,0,9));
+			
+		}
 	}
 }
