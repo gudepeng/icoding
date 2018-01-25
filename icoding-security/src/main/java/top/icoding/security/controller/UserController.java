@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +27,8 @@ public class UserController {
 	@Autowired
 	private UserService userservice;
 
-	@ApiOperation(value = "创建用户", notes = "创建用户", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@PostMapping
+	@ApiOperation(value = "创建用户", notes = "创建用户", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PutMapping
 	public ReturnMessage insertUser(@RequestBody @Valid UserVo user) {
 		int message = userservice.insertUser(user);
 		if (message == 0) {

@@ -7,9 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,7 +74,7 @@ public class ArticleController {
 			return new ReturnMessage("true", articles);
 	}
 
-	@ApiOperation(value = "文章模块", notes = "根据id删除文章", httpMethod = "DELETE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ApiOperation(value = "文章模块", notes = "根据id删除文章", httpMethod = "DELElTE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiImplicitParam(name = "articleId", value = "文章id", required = true, dataType = "int", paramType = "path")
 	@DeleteMapping("/{articleId:\\d}")
 	public ReturnMessage delArticle(@PathVariable("articleId") int articleId) {
@@ -84,9 +89,9 @@ public class ArticleController {
 
 	@ApiOperation(value = "文章模块", notes = "添加或修改文章", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@PutMapping
-	public ReturnMessage insertAndUpdateArticle(@RequestBody ArticleVo articleVo) {
+	public ReturnMessage insertAndUpdateArticle(@RequestBody ArticleVo articleVo,HttpServletRequest request) {
 		SocialUserDetails userDetails = (SocialUserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-		//articleVo.setUserId(userDetails.getUserId());
+		articleVo.setUserId(1);
 		articleservice.insertAndUpdateArticle(articleVo);
 		return new ReturnMessage("true", null);
 	}

@@ -43,7 +43,7 @@ public class ReptileMain {
         	map.put("title", title.text().replace("置顶", ""));
         	map.put("summary", summary.text());
         	map.put("createTime", createTime.text());
-        	map.put("content", article_content);
+        	map.put("content", article_content.text());
         	resultList.add(map);
         }
         

@@ -1,5 +1,8 @@
 package top.icoding.security.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -14,7 +17,7 @@ public class LoginController {
 	
 	@RequestMapping("/login/authority")
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
-	public String LoginAuthority(){
+	public String LoginAuthority(HttpServletRequest servletRequest,HttpServletResponse response){
 		return "没有权限";
 	}
 	

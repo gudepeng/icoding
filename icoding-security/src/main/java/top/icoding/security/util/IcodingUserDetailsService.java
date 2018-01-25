@@ -30,7 +30,10 @@ public class IcodingUserDetailsService implements UserDetailsService,SocialUserD
 			throw new UsernameNotFoundException("not find user:"+username);
 		}
 		UserVo user=listuser.get(0);
-		return new SocialUser(user.getUserName(),user.getUserPwd(), new ArrayList<GrantedAuthority>());
+		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();  
+        GrantedAuthority au = new SimpleGrantedAuthority("AUTH_LOGIN"); 
+        list.add(au);
+		return new SocialUser(user.getUserName(),user.getUserPwd(), list);
 	}
 
 	@Override
