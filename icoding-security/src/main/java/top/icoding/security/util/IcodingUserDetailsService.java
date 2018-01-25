@@ -33,7 +33,18 @@ public class IcodingUserDetailsService implements UserDetailsService,SocialUserD
 		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();  
         GrantedAuthority au = new SimpleGrantedAuthority("AUTH_LOGIN"); 
         list.add(au);
-		return new SocialUser(user.getUserName(),user.getUserPwd(), list);
+        
+        SessionUser sessionuser=new SessionUser(user.getUserName(),user.getUserPwd(), list);
+        sessionuser.setUserId(user.getUserId().toString());
+        sessionuser.setDisplayName(user.getUserName());
+        sessionuser.setUserPhone(user.getUserPhone());
+        sessionuser.setUserSex(user.getUserSex());
+        sessionuser.setUserEmail(user.getUserEmail());
+        sessionuser.setUserAddress(user.getUserAddress());
+        sessionuser.setUserDescription(user.getUserDescription());
+        sessionuser.setUserImageUrl(user.getUserImageUrl());
+        
+		return sessionuser;
 	}
 
 	@Override
@@ -41,7 +52,10 @@ public class IcodingUserDetailsService implements UserDetailsService,SocialUserD
 		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();  
         GrantedAuthority au = new SimpleGrantedAuthority("AUTH_LOGIN"); 
         list.add(au);
-		return new SocialUser(userid,"password", list);
+        
+        SessionUser sessionuser=new SessionUser(userid,"password", list);
+        sessionuser.setUserId(userid);
+		return sessionuser;
 	}
 
 }

@@ -11,11 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.social.security.SocialUserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +25,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import top.icoding.exception.ArticleException;
+import top.icoding.security.util.SessionUser;
 import top.icoding.service.ArticleService;
 import top.icoding.service.impl.RedisServiceImpl;
 import top.icoding.util.ReturnMessage;
@@ -90,7 +87,7 @@ public class ArticleController {
 	@ApiOperation(value = "文章模块", notes = "添加或修改文章", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@PutMapping
 	public ReturnMessage insertAndUpdateArticle(@RequestBody ArticleVo articleVo,HttpServletRequest request) {
-		SocialUserDetails userDetails = (SocialUserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
 		articleVo.setUserId(1);
 		articleservice.insertAndUpdateArticle(articleVo);
 		return new ReturnMessage("true", null);
