@@ -38,9 +38,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				http.csrf().disable()
 						// 对请求进行认证
 						.authorizeRequests()
+						.antMatchers(HttpMethod.OPTIONS).permitAll()
 						// 权限检查
-						.antMatchers("/like").hasAuthority("AUTH_LOGIN")
-						.antMatchers(HttpMethod.PUT, "/article").hasAuthority("AUTH_LOGIN")
+						.antMatchers("/like/*").authenticated()
+						.antMatchers(HttpMethod.PUT, "/article").authenticated()
 						//认证不通过后的处理  
 				        .and().exceptionHandling()  
 				        .authenticationEntryPoint(new NotHasAuthorityController("/login/authority"))  

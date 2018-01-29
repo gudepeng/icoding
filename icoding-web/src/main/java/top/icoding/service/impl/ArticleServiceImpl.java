@@ -1,15 +1,16 @@
 package top.icoding.service.impl;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import top.icoding.exception.ArticleException;
+import top.icoding.security.util.SessionUser;
 import top.icoding.service.ArticleService;
 import top.icoding.service.impl.dao.ArticleLikeMapper;
 import top.icoding.service.impl.dao.ArticleMapper;
@@ -38,6 +39,12 @@ public class ArticleServiceImpl implements ArticleService{
 		map.put("page", page);
 		map.put("sortId", sortId);
 		map.put("userId", userId);
+		Object userDetails = SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+		if(!userDetails.equals("anonymousUser")){
+			map.put("likeUserId", ((SessionUser)userDetails).getUserId());
+		}else{
+			map.put("likeUserId", null);
+		}
 		map.put("data", articlemapper.selectArticlesBySortIdByPage(map));
 		return map;
 	}

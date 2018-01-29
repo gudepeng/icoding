@@ -32,6 +32,8 @@ public class ArticleVo {
     private Byte articleUp;
 
     private String articleContent;
+    
+    private Integer likeId;
 
     public Integer getArticleId() {
         return articleId;
@@ -136,4 +138,13 @@ public class ArticleVo {
     public void setArticleContent(String articleContent) {
         this.articleContent = articleContent == null ? null : articleContent.trim();
     }
+
+	public Integer getLikeId() {
+		return likeId;
+	}
+
+	public void setLikeId(Integer likeId) {
+		this.likeId = likeId;
+	}
+    
 }

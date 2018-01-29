@@ -37,11 +37,15 @@ public interface ArticleMapper {
 			@Result(property = "articleClick", column = "article_click"),
 			@Result(property = "articleLike", column = "article_like"),
 			@Result(property = "articleComment", column = "article_comment"),
-			@Result(property = "articleUp", column = "article_up") })
-	@Select("<script> " + "select article_id,article_title,article_tag,sort_id,article_summary,article_titleimage"
-			+ ",user_id,article_time,article_click,article_like,article_comment,article_up "
-			+ "from article where 1 = 1 " + "	<if test='sortId != null'> " + "		and sort_id = #{sortId} "
-			+ " </if> " + "	<if test='userId != null'> " + " and user_id = #{userId} " + " </if> "
+			@Result(property = "articleUp", column = "article_up"),
+			@Result(property = "likeId", column = "like_id")})
+	@Select("<script> " + "select like_id,a1.article_id,article_title,article_tag,sort_id,article_summary,article_titleimage"
+			+ ",a1.user_id,article_time,article_click,article_like,article_comment,article_up "
+			+ "from article a1 LEFT JOIN (select * from article_like where <choose>"
+			+ "<when test='likeUserId != null'> user_id=#{likeUserId} </when><otherwise> user_id='' </otherwise></choose>) "
+			+ "a2 ON a1.article_id = a2.article_id "
+			+ " where 1 = 1 " + "	<if test='sortId != null'> " + "		and sort_id = #{sortId} "
+			+ " </if> " + "	<if test='userId != null'> " + " and a1.user_id = #{userId} " + " </if> "
 			+ " order by article_time desc" + "</script> ")
 	List<ArticleVo> selectArticlesBySortIdByPage(Map map);
 

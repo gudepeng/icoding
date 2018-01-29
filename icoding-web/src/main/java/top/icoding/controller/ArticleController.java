@@ -59,7 +59,7 @@ public class ArticleController {
 
 	@ApiOperation(value = "文章模块", notes = "根据id获取文章", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiImplicitParam(name = "articleId", value = "文章id", required = true, dataType = "int", paramType = "path")
-	@GetMapping("/{articleId:\\d}")
+	@GetMapping("/{articleId:^\\d+$}")
 	public ReturnMessage getArticleInfo(@PathVariable("articleId") int articleId) {
 			ArticleVo articles = articleservice.getArticleInfoById(articleId);
 			Map<String,Object> map = new HashMap<>();
@@ -73,7 +73,7 @@ public class ArticleController {
 
 	@ApiOperation(value = "文章模块", notes = "根据id删除文章", httpMethod = "DELElTE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiImplicitParam(name = "articleId", value = "文章id", required = true, dataType = "int", paramType = "path")
-	@DeleteMapping("/{articleId:\\d}")
+	@DeleteMapping("/{articleId:^\\d+$}")
 	public ReturnMessage delArticle(@PathVariable("articleId") int articleId) {
 		try {
 			articleservice.delArticleById(articleId);

@@ -2,8 +2,10 @@ package top.icoding.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import top.icoding.exception.ArticleException;
+import top.icoding.security.util.SessionUser;
 import top.icoding.service.ArticleLikeService;
 import top.icoding.util.ReturnMessage;
 
@@ -28,8 +31,8 @@ public class ArticleLikeController {
 
 	@ApiOperation(value = "点赞功能", notes = "添加文章点赞", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiImplicitParam(name = "articleId", value = "文章主键", required = true, dataType = "int", paramType = "query")
-	@PutMapping
-	public ReturnMessage like(@RequestParam(value = "articleId", required = true) Integer articleId) {
+	@PutMapping("/{articleId:^\\d+$}")
+	public ReturnMessage like(@PathVariable("articleId") int articleId) {
 		Integer userId = 1;
 		try {
 			articlelikeservice.like(articleId, userId);
@@ -43,8 +46,9 @@ public class ArticleLikeController {
 
 	@ApiOperation(value = "点赞功能", notes = "删除文章点赞", httpMethod = "DELETE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiImplicitParam(name = "articleId", value = "文章主键", required = true, dataType = "int", paramType = "query")
-	@DeleteMapping
-	public ReturnMessage unlike(@RequestParam(value = "articleId", required = true) Integer articleId) {
+	@DeleteMapping("/{articleId:^\\d+$}")
+	public ReturnMessage unlike(@PathVariable("articleId") int articleId) {
+		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
 		Integer userId = 1;
 		try {
 			articlelikeservice.unlike(articleId,userId);
@@ -54,8 +58,4 @@ public class ArticleLikeController {
 		}
 	}
 	
-	@GetMapping
-	public String getdemo(){
-		return "测试成功";
-	}
 }
