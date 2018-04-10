@@ -13,7 +13,7 @@ import top.icoding.util.Const;
 @ApiModel(description = "用户信息")
 public class UserVo {
 	@ApiModelProperty(value = "用户主键", required = false)
-    private Integer userId;
+    private String userId;
     
     @ApiModelProperty(value = "用户名", required = true)
     @NotEmpty
@@ -47,15 +47,15 @@ public class UserVo {
     @ApiModelProperty(value = "用户锁定状态", required = false)
     private Byte userLock = Const.DEFAULT_USERLOCK;
 
-    public Integer getUserId() {
-        return userId;
-    }
+    public String getUserId() {
+		return userId;
+	}
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public String getUserName() {
+	public String getUserName() {
         return userName;
     }
 

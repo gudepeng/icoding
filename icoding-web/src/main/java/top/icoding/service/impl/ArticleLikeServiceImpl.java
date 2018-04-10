@@ -26,7 +26,7 @@ public class ArticleLikeServiceImpl implements ArticleLikeService {
 
 	@Override
 	@Transactional
-	public void like(int articleId, int userId) throws Exception {
+	public void like(int articleId, String userId) throws Exception {
 		if (articlemapper.addArticleLikeByPrimaryKey(articleId) == 0) {
 			throw new ArticleException();
 		}
@@ -38,7 +38,7 @@ public class ArticleLikeServiceImpl implements ArticleLikeService {
 
 	@Override
 	@Transactional
-	public void unlike(int articleId, int userId) {
+	public void unlike(int articleId, String userId) {
 		if (articlemapper.cutArticleLikeByPrimaryKey(articleId) == 0) {
 			throw new ArticleException();
 		}

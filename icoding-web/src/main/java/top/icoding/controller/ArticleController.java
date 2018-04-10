@@ -49,10 +49,10 @@ public class ArticleController {
 			@ApiImplicitParam(name = "currentPage", value = "当前第几页", required = false, dataType = "int", paramType = "query"),
 			@ApiImplicitParam(name = "pageNumber", value = "每页多少条", required = false, dataType = "int", paramType = "query"),
 			@ApiImplicitParam(name = "sortId", value = "文章分类", required = false, dataType = "int", paramType = "query"),
-			@ApiImplicitParam(name = "userId", value = "用户主键", required = false, dataType = "int", paramType = "query")})
+			@ApiImplicitParam(name = "userId", value = "用户主键", required = false, dataType = "string", paramType = "query")})
 	@GetMapping
 	public ReturnMessage getArticleList(@RequestParam(defaultValue = "1") Integer currentPage, Integer pageNumber,
-			Integer sortId,Integer userId) {
+			Integer sortId,String userId) {
 		Map<String, Object> articles = articleservice.getArticles(currentPage, pageNumber, sortId, userId);
 		return new ReturnMessage("true", articles);
 	}
@@ -88,7 +88,7 @@ public class ArticleController {
 	@PutMapping
 	public ReturnMessage insertAndUpdateArticle(@RequestBody ArticleVo articleVo,HttpServletRequest request) {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-		articleVo.setUserId(1);
+		articleVo.setUserId(userDetails.getUserId());
 		articleservice.insertAndUpdateArticle(articleVo);
 		return new ReturnMessage("true", null);
 	}

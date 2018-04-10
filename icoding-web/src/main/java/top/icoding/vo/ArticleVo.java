@@ -19,7 +19,7 @@ public class ArticleVo {
 
     private String articleTitleimage;
 
-    private Integer userId;
+    private String userId;
 
     private Date articleTime;
 
@@ -83,15 +83,15 @@ public class ArticleVo {
         this.articleTitleimage = articleTitleimage == null ? null : articleTitleimage.trim();
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
+    public String getUserId() {
+		return userId;
+	}
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public Date getArticleTime() {
+	public Date getArticleTime() {
         return articleTime;
     }
 

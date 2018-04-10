@@ -7,11 +7,11 @@ public class ArticleLikeVo {
 
     private Integer articleId;
 
-    private Integer userId;
+    private String userId;
 
     private Date likeTime;
 
-    public ArticleLikeVo(Integer articleId, Integer userId, Date likeTime) {
+    public ArticleLikeVo(Integer articleId, String userId, Date likeTime) {
 		super();
 		this.articleId = articleId;
 		this.userId = userId;
@@ -34,15 +34,15 @@ public class ArticleLikeVo {
         this.articleId = articleId;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
+    public String getUserId() {
+		return userId;
+	}
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public Date getLikeTime() {
+	public Date getLikeTime() {
         return likeTime;
     }
 

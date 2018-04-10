@@ -16,7 +16,7 @@ public interface ArticleLikeMapper {
     int insertArticleLike(ArticleLikeVo articlelike);
 	
 	@Delete("delete from article_like where article_id = #{articleId} and user_id = #{userId}")
-	int deleteArticleLike(@Param("articleId")int articleId,@Param("userId")int userId);
+	int deleteArticleLike(@Param("articleId")int articleId,@Param("userId")String userId);
 	
 	@Delete("delete from article_like where article_id = #{articleId}")
 	int deleteArticleLikeByArticleId(int articleId);

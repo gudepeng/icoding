@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 import top.icoding.vo.ArticleVo;
@@ -89,6 +90,7 @@ public interface ArticleMapper {
 			+ ",user_id,article_time,article_click,article_like,article_comment,article_up,article_content) "
 			+ "values(#{articleTitle},#{articleTag},#{sortId},#{articleSummary},#{articleTitleimage}"
 			+ ",#{userId},#{articleTime},#{articleClick},#{articleLike},#{articleComment},#{articleUp},#{articleContent})")
+	@SelectKey(statement = "select LAST_INSERT_ID()", keyProperty = "articleId", keyColumn = "article_id", resultType = Integer.class, before = false)
 	int insertArticle(ArticleVo articleVo);
 
 	@Update("<script> update article <set >"

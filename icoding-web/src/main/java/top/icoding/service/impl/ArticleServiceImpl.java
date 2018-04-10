@@ -29,7 +29,7 @@ public class ArticleServiceImpl implements ArticleService{
 	private ArticleLikeMapper articlelikemapper;
 	
 	@Override
-	public Map<String,Object> getArticles(Integer currentPage, Integer pageNumber,Integer sortId,Integer userId) {
+	public Map<String,Object> getArticles(Integer currentPage, Integer pageNumber,Integer sortId,String userId) {
 		Page page = new Page();
 		page.setCurrentPage(currentPage);
 		if(pageNumber!=null){

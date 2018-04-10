@@ -33,9 +33,9 @@ public class ArticleLikeController {
 	@ApiImplicitParam(name = "articleId", value = "文章主键", required = true, dataType = "int", paramType = "query")
 	@PutMapping("/{articleId:^\\d+$}")
 	public ReturnMessage like(@PathVariable("articleId") int articleId) {
-		Integer userId = 1;
+		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
 		try {
-			articlelikeservice.like(articleId, userId);
+			articlelikeservice.like(articleId, userDetails.getUserId());
 			return new ReturnMessage("点赞成功");
 		} catch (ArticleException e) {
 			return new ReturnMessage("点赞失败");
@@ -49,9 +49,8 @@ public class ArticleLikeController {
 	@DeleteMapping("/{articleId:^\\d+$}")
 	public ReturnMessage unlike(@PathVariable("articleId") int articleId) {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-		Integer userId = 1;
 		try {
-			articlelikeservice.unlike(articleId,userId);
+			articlelikeservice.unlike(articleId,userDetails.getUserId());
 			return new ReturnMessage("取消点赞成功", null);
 		} catch (ArticleException e) {
 			return new ReturnMessage("取消点赞失败");

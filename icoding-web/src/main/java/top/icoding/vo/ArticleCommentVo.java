@@ -13,7 +13,7 @@ public class ArticleCommentVo {
 
     private String commentContent;
 
-    private Integer userId;
+    private String userId;
 
     private Date commentTime;
 
@@ -41,15 +41,15 @@ public class ArticleCommentVo {
         this.commentContent = commentContent == null ? null : commentContent.trim();
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
+    public String getUserId() {
+		return userId;
+	}
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public Date getCommentTime() {
+	public Date getCommentTime() {
         return commentTime;
     }
 

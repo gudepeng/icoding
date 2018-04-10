@@ -17,7 +17,7 @@ public interface ArticleService {
 	 * @param sortId     文章分类
 	 * @return 返回文章列表和分页信息
 	 * */
-	Map<String,Object> getArticles(Integer currentPage,Integer pageNumber,Integer sortId,Integer userId);
+	Map<String,Object> getArticles(Integer currentPage,Integer pageNumber,Integer sortId,String userId);
 	
 	/**
 	 * 根据id获取文章

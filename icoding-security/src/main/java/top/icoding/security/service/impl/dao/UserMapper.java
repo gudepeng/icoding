@@ -71,7 +71,7 @@ public interface UserMapper {
 	 * */
 	@Insert("insert into user (user_name,user_pwd,user_phone,user_email,user_sex,user_address,user_description,user_image_url,user_rank_id,user_lock)"
 			+ " values(#{userName},#{userPwd},#{userPhone},#{userEmail},#{userSex},#{userAddress},#{userDescription},#{userImageUrl},#{userRankId},#{userLock})")
-	@SelectKey(statement = "select LAST_INSERT_ID()", keyProperty = "userId", keyColumn = "user_id", resultType = Integer.class, before = false)
+	@SelectKey(statement = "select LAST_INSERT_ID()", keyProperty = "userId", keyColumn = "user_id", resultType = String.class, before = false)
 	int insertUser(UserVo user);
 
 }
