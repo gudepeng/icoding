@@ -3,6 +3,7 @@ package top.icoding.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import top.icoding.service.SortService;
@@ -19,6 +20,7 @@ public class SortServiceImpl implements SortService {
 	public SortMapper sortmapper;
 	
 	@Override
+	@Cacheable(value="sortType",key="#sortType")
 	public List<SortVo> getSortByType(String sortType) {
 		return sortmapper.selectSortByType(sortType);
 	}

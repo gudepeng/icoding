@@ -42,6 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						// 权限检查
 						.antMatchers("/like/*").authenticated()
 						.antMatchers(HttpMethod.PUT, "/article").authenticated()
+						.antMatchers(HttpMethod.PUT, "/comment").authenticated()
+						.antMatchers(HttpMethod.PUT, "/reply").authenticated()
 						//认证不通过后的处理  
 				        .and().exceptionHandling()  
 				        .authenticationEntryPoint(new NotHasAuthorityController("/login/authority"))  

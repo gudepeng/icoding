@@ -36,7 +36,7 @@ public class ArticleLikeController {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
 		try {
 			articlelikeservice.like(articleId, userDetails.getUserId());
-			return new ReturnMessage("点赞成功");
+			return new ReturnMessage("点赞成功", null);
 		} catch (ArticleException e) {
 			return new ReturnMessage("点赞失败");
 		}catch (Exception e) {

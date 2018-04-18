@@ -1,9 +1,12 @@
 package top.icoding.security.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import top.icoding.security.service.UserService;
+import top.icoding.security.util.SessionUser;
 import top.icoding.security.vo.UserVo;
 import top.icoding.util.ReturnMessage;
 
@@ -43,5 +47,17 @@ public class UserController {
 	public ReturnMessage getUserInfo(Integer userId) {
 		UserVo userVo = userservice.getUserByUserid(userId);
 		return new ReturnMessage("成功", userVo);
+	}
+	
+	@ApiOperation(value = "获取当前用户信息", notes = "获取当前用户信息", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping("/me")
+	public ReturnMessage getMeUserInfo(HttpServletRequest request,HttpServletResponse response) {
+		Object su = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(su.equals("anonymousUser")){
+			return new ReturnMessage("没有登录");
+		}else{
+			SessionUser userDetails = (SessionUser) su;
+			return new ReturnMessage("成功", userDetails);
+		}
 	}
 }
