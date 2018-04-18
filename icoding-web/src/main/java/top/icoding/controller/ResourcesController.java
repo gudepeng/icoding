@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import top.icoding.service.ResourcesService;
 import top.icoding.util.ReturnMessage;
+import top.icoding.util.ReturnMessageType;
 import top.icoding.vo.ResourcesVo;
 
 /**
@@ -34,18 +35,18 @@ public class ResourcesController {
 		}catch (Exception e) {
 			return new ReturnMessage("false");
 		}
-		return new ReturnMessage("true", null);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
 	}
 	
 	@GetMapping(value="{resourcesId:\\d}")
 	public ReturnMessage getResourcesInfo(@PathVariable int resourcesId){
 		ResourcesVo resourceVo = resourcesservice.getResourcesInfo(resourcesId);
-		return new ReturnMessage("true", resourceVo);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), resourceVo);
 	}
 	@GetMapping
 	public ReturnMessage getResourcess(@RequestParam(defaultValue = "1") Integer currentPage, Integer pageNumber,Integer sortId){
 		Map<String,Object> resourceVos=resourcesservice.getResourcess(currentPage,pageNumber,sortId);
-		return new ReturnMessage("true", resourceVos);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), resourceVos);
 	}
 	
 	

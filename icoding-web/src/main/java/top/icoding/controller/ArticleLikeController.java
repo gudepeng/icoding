@@ -18,6 +18,7 @@ import top.icoding.exception.ArticleException;
 import top.icoding.security.util.SessionUser;
 import top.icoding.service.ArticleLikeService;
 import top.icoding.util.ReturnMessage;
+import top.icoding.util.ReturnMessageType;
 
 /**
  * @author 我是金角大王
@@ -36,11 +37,11 @@ public class ArticleLikeController {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
 		try {
 			articlelikeservice.like(articleId, userDetails.getUserId());
-			return new ReturnMessage("点赞成功", null);
+			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
 		} catch (ArticleException e) {
-			return new ReturnMessage("点赞失败");
+			return new ReturnMessage(ReturnMessageType.FAILUER.msg());
 		}catch (Exception e) {
-			return new ReturnMessage("点赞失败");
+			return new ReturnMessage(ReturnMessageType.FAILUER.msg());
 		}
 	}
 
@@ -51,9 +52,9 @@ public class ArticleLikeController {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
 		try {
 			articlelikeservice.unlike(articleId,userDetails.getUserId());
-			return new ReturnMessage("取消点赞成功", null);
+			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
 		} catch (ArticleException e) {
-			return new ReturnMessage("取消点赞失败");
+			return new ReturnMessage(ReturnMessageType.FAILUER.msg());
 		}
 	}
 	

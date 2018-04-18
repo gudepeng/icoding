@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import top.icoding.service.SortService;
 import top.icoding.util.ReturnMessage;
+import top.icoding.util.ReturnMessageType;
 import top.icoding.vo.SortVo;
 
 /**
@@ -26,6 +27,6 @@ public class SortController {
 	@GetMapping("/{sortType}")
 	public ReturnMessage getSortByType(@PathVariable("sortType") String sortType){
 		List<SortVo> sortVos = sortservice.getSortByType(sortType);
-		return new ReturnMessage("true",sortVos);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(),sortVos);
 	}
 }

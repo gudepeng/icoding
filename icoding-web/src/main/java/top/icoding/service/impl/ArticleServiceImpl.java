@@ -56,7 +56,6 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	@Transactional
 	public void delArticleById(int articleId) {
 		if(articlemapper.delArticleById(articleId)==0){
 			throw new ArticleException();

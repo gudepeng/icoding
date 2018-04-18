@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import top.icoding.exception.CommentAndReplyExcption;
 import top.icoding.security.util.SessionUser;
 import top.icoding.service.CommentAndReplyService;
 import top.icoding.util.ReturnMessage;
+import top.icoding.util.ReturnMessageType;
 import top.icoding.vo.CommentVo;
 import top.icoding.vo.ReplyVo;
 
@@ -38,40 +40,48 @@ public class CommentAndReplyController {
 	@GetMapping("/comment/{topicType}/{topicId:^\\d+$}")
 	public ReturnMessage getComments(@PathVariable("topicType") String topicType, @PathVariable("topicId") int topicId) {
 		List<CommentVo> comments = commentandreplyservice.getCommentsById(topicType, topicId);
-		return new ReturnMessage("获取成功", comments);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), comments);
 	}
 
 	@ApiOperation(value = "评论回复功能", notes = "删除评论", httpMethod = "DELETE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@DeleteMapping("/comment/{commentId:^\\d+$}")
 	public ReturnMessage deleteComment(@PathVariable("commentId") int commentId) {
-		commentandreplyservice.deleteComment(commentId);
-		return new ReturnMessage("获取成功", null);
+		try{
+			commentandreplyservice.deleteComment(commentId);
+			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
+		}catch(CommentAndReplyExcption e){
+			return new ReturnMessage(ReturnMessageType.FAILUER.msg());
+		}
+		
 	}
 
 	@ApiOperation(value = "评论回复功能", notes = "添加评论", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@PutMapping("/comment")
-	public ReturnMessage insertOrUpdateReply(@RequestBody CommentVo commentVo) {
+	public ReturnMessage insertOrUpdateComment(@RequestBody CommentVo commentVo) {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		commentVo.setFromUserId(userDetails.getUserId());
 		commentandreplyservice.insertOrUpdateComment(commentVo);
-		return new ReturnMessage("获取成功", null);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
 	}
 	
 	@ApiOperation(value = "评论回复功能", notes = "添加回复", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@PutMapping("/reply")
-	public ReturnMessage insertOrUpdateComment(@RequestBody ReplyVo replyVo) {
+	public ReturnMessage insertOrUpdateReply(@RequestBody ReplyVo replyVo) {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		replyVo.setFromUserId(userDetails.getUserId());
-		replyVo.setFromUserId("2");
-		commentandreplyservice.insertOrUpdateReply(replyVo);
-		return new ReturnMessage("获取成功", null);
+		try{
+			commentandreplyservice.insertOrUpdateReply(replyVo);
+			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
+		}catch(CommentAndReplyExcption e){
+			return new ReturnMessage(ReturnMessageType.FAILUER.msg());
+		}
 	}
 
 	@ApiOperation(value = "评论回复功能", notes = "删除回复", httpMethod = "DELETE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@DeleteMapping("/reply/{replyId:^\\d+$}")
 	public ReturnMessage deleteReply(@PathVariable("replyId") int replyId) {
 		commentandreplyservice.deleteReply(replyId);
-		return new ReturnMessage("获取成功", null);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
 	}
 	
 	@ApiOperation(value = "评论回复功能", notes = "获取回复列表", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -79,6 +89,6 @@ public class CommentAndReplyController {
 	@GetMapping("/reply")
 	public ReturnMessage getReplys(int commentId) {
 		List<ReplyVo> replys = commentandreplyservice.getReplysByCommentId(commentId);
-		return new ReturnMessage("获取成功", replys);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), replys);
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import top.icoding.exception.CommentAndReplyExcption;
 import top.icoding.service.CommentAndReplyService;
 import top.icoding.service.impl.dao.CommentMapper;
 import top.icoding.service.impl.dao.ReplyMapper;
@@ -44,7 +45,9 @@ public class CommentAndReplyServiceImpl implements CommentAndReplyService {
 	public void insertOrUpdateReply(ReplyVo replyVo) {
 		replyVo.setReplyTime(new Date());
 		if(replyVo.getReplyId()==null){
-			commentmapper.addCommentReplyByCommentId(replyVo.getCommentId());
+			if(commentmapper.addCommentReplyByCommentId(replyVo.getCommentId()) == 0){
+				throw new CommentAndReplyExcption();
+			}
 			replymapper.insertReply(replyVo);
 		}else{
 			replymapper.updateReply(replyVo);
@@ -53,7 +56,9 @@ public class CommentAndReplyServiceImpl implements CommentAndReplyService {
 
 	@Override
 	public void deleteComment(int commentId) {
-		commentmapper.delCommentById(commentId);
+		if(commentmapper.delCommentById(commentId) == 0){
+			throw new CommentAndReplyExcption();
+		}
 		replymapper.delReplyByCommentId(commentId);
 	}
 

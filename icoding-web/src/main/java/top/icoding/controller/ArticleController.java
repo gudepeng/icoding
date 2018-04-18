@@ -29,6 +29,7 @@ import top.icoding.security.util.SessionUser;
 import top.icoding.service.ArticleService;
 import top.icoding.service.impl.RedisServiceImpl;
 import top.icoding.util.ReturnMessage;
+import top.icoding.util.ReturnMessageType;
 import top.icoding.vo.ArticleVo;
 
 /**
@@ -54,7 +55,7 @@ public class ArticleController {
 	public ReturnMessage getArticleList(@RequestParam(defaultValue = "1") Integer currentPage, Integer pageNumber,
 			Integer sortId,String userId) {
 		Map<String, Object> articles = articleservice.getArticles(currentPage, pageNumber, sortId, userId);
-		return new ReturnMessage("true", articles);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), articles);
 	}
 
 	@ApiOperation(value = "文章模块", notes = "根据id获取文章", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -68,7 +69,7 @@ public class ArticleController {
 			getHotArticle();
 			redisserviceimpl.IncrementScore(LocalDate.now().toString(),map, -1);
 			redisserviceimpl.IncrementScore(LocalDate.now().minusDays(6)+"-"+LocalDate.now(),map, -1);
-			return new ReturnMessage("true", articles);
+			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), articles);
 	}
 
 	@ApiOperation(value = "文章模块", notes = "根据id删除文章", httpMethod = "DELElTE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -78,10 +79,10 @@ public class ArticleController {
 		try {
 			articleservice.delArticleById(articleId);
 		} catch (ArticleException e) {
-			return new ReturnMessage("false");
+			return new ReturnMessage(ReturnMessageType.FAILUER.msg());
 		}
 
-		return new ReturnMessage("true", null);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
 	}
 
 	@ApiOperation(value = "文章模块", notes = "添加或修改文章", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -90,7 +91,7 @@ public class ArticleController {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
 		articleVo.setUserId(userDetails.getUserId());
 		articleservice.insertAndUpdateArticle(articleVo);
-		return new ReturnMessage("true", null);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
 	}
 	
 	@ApiOperation(value = "文章模块", notes = "获取热门文章", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -99,14 +100,14 @@ public class ArticleController {
 		String hotsName=LocalDate.now().minusDays(6)+"-"+LocalDate.now();
 		if(redisserviceimpl.exists(hotsName)){
 			Set<Object> hotList = redisserviceimpl.zRange(hotsName,0,9);
-			return new ReturnMessage("true", hotList);
+			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), hotList);
 		}else{
 			List<String> hosts=new ArrayList<>();
 			for(int i=0;i<7;i++){
 				hosts.add(LocalDate.now().minusDays(i).toString());
 			}
 			redisserviceimpl.unionStore(hosts, hotsName);
-			return new ReturnMessage("true", redisserviceimpl.zRange(hotsName,0,9));
+			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), redisserviceimpl.zRange(hotsName,0,9));
 			
 		}
 	}
