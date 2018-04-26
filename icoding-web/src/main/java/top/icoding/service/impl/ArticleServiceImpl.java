@@ -70,6 +70,7 @@ public class ArticleServiceImpl implements ArticleService{
 			articleVo.setArticleClick(0);
 			articleVo.setArticleLike(0);
 			articleVo.setArticleComment(0);
+			articleVo.setArticleUp((byte) 0);
 			articlemapper.insertArticle(articleVo);
 		}else{
 			articlemapper.updateArticle(articleVo);

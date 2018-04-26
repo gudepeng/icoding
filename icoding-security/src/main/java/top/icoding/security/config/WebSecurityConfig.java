@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import top.icoding.security.controller.NotHasAuthorityController;
@@ -51,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						.loginProcessingUrl("/login/form")
 						.successHandler(icodingAuthenticationSuccessHandler)
 						.failureHandler(icodingAuthenticationFailureHandler)
+						.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
 						.and().apply(icodingSpringSocialConfigurer);
 	}
 
