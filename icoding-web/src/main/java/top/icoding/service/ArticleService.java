@@ -20,6 +20,16 @@ public interface ArticleService {
 	Map<String,Object> getArticles(Integer currentPage,Integer pageNumber,Integer sortId,String userId);
 	
 	/**
+	 * 获取文章列表
+	 * 
+	 * @param currentPage 第几页
+	 * @param pageNumber  每也多少条
+	 * @param type     操作类别（我的文章or我喜欢的文章）
+	 * @return 返回文章列表和分页信息
+	 * */
+	Map<String,Object> getSelfOrLikeArticles(Integer currentPage,Integer pageNumber,String type);
+	
+	/**
 	 * 根据id获取文章
 	 * 
 	 * @param articleId    文章主键

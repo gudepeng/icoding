@@ -48,6 +48,28 @@ public class ArticleServiceImpl implements ArticleService{
 		map.put("data", articlemapper.selectArticlesBySortIdByPage(map));
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> getSelfOrLikeArticles(Integer currentPage, Integer pageNumber, String type) {
+		Page page = new Page();
+		page.setCurrentPage(currentPage);
+		if(pageNumber!=null){
+			page.setPageNumber(pageNumber);
+		}
+		Map<String,Object> map = new HashMap<>(3);
+		map.put("page", page);
+		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+		if(type.equals("SELF")){
+			map.put("likeUserId", null);
+			map.put("userId", userDetails.getUserId());
+			map.put("data", articlemapper.selectArticlesBySortIdByPage(map));
+			return map;
+		}else{
+			map.put("likeUserId", userDetails.getUserId());
+			map.put("data", articlemapper.selectLikeArticles(map));
+			return map;
+		}
+	}
 
 	@Override
 	public ArticleVo getArticleInfoById(int articleId) {

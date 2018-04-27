@@ -49,7 +49,31 @@ public interface ArticleMapper {
 			+ " </if> " + "	<if test='userId != null'> " + " and a1.user_id = #{userId} " + " </if> "
 			+ " order by article_time desc" + "</script> ")
 	List<ArticleVo> selectArticlesBySortIdByPage(Map map);
-
+	/**
+	 * 获取分页文章列表
+	 * 
+	 * @param map
+	 *            分页需要参数
+	 * @return 分页列表
+	 */
+	@Results(id = "selectLikeArticles", value = {
+			@Result(property = "articleId", column = "article_id", id = true),
+			@Result(property = "articleTitle", column = "article_title"),
+			@Result(property = "articleTag", column = "article_tag"), @Result(property = "sortId", column = "sort_id"),
+			@Result(property = "articleSummary", column = "article_summary"),
+			@Result(property = "articleTitleimage", column = "article_titleimage"),
+			@Result(property = "userId", column = "user_id"), 
+			@Result(property = "articleTime", column = "article_time"),
+			@Result(property = "articleClick", column = "article_click"),
+			@Result(property = "articleLike", column = "article_like"),
+			@Result(property = "articleComment", column = "article_comment"),
+			@Result(property = "articleUp", column = "article_up"),
+			@Result(property = "likeId", column = "like_id")})
+	@Select("<script> " + "select like_id,a1.article_id,article_title,article_tag,sort_id,article_summary,article_titleimage"
+			+ ",a1.user_id,article_time,article_click,article_like,article_comment,article_up "
+			+ "from article a1 JOIN (select * from article_like where user_id=#{likeUserId})"
+			+ "a2 ON a1.article_id = a2.article_id order by article_time desc" + "</script> ")
+	List<ArticleVo> selectLikeArticles(Map map);
 	/**
 	 * 获取文章信息
 	 * 

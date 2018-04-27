@@ -39,7 +39,7 @@ import top.icoding.vo.ArticleVo;
 @RestController
 @RequestMapping(value = "/article", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ArticleController {
-	
+
 	@Autowired
 	private ArticleService articleservice;
 	@Autowired
@@ -50,11 +50,22 @@ public class ArticleController {
 			@ApiImplicitParam(name = "currentPage", value = "当前第几页", required = false, dataType = "int", paramType = "query"),
 			@ApiImplicitParam(name = "pageNumber", value = "每页多少条", required = false, dataType = "int", paramType = "query"),
 			@ApiImplicitParam(name = "sortId", value = "文章分类", required = false, dataType = "int", paramType = "query"),
-			@ApiImplicitParam(name = "userId", value = "用户主键", required = false, dataType = "string", paramType = "query")})
+			@ApiImplicitParam(name = "userId", value = "用户主键", required = false, dataType = "string", paramType = "query") })
 	@GetMapping
 	public ReturnMessage getArticleList(@RequestParam(defaultValue = "1") Integer currentPage, Integer pageNumber,
-			Integer sortId,String userId) {
+			Integer sortId, String userId) {
 		Map<String, Object> articles = articleservice.getArticles(currentPage, pageNumber, sortId, userId);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), articles);
+	}
+
+	@ApiOperation(value = "文章模块", notes = "获取我的文章和我的喜欢", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "currentPage", value = "当前第几页", required = false, dataType = "int", paramType = "query"),
+			@ApiImplicitParam(name = "pageNumber", value = "每页多少条", required = false, dataType = "int", paramType = "query") })
+	@GetMapping("/self/{type}")
+	public ReturnMessage getSelfOrLikeArticleList(@RequestParam(defaultValue = "1") Integer currentPage, Integer pageNumber,
+			@PathVariable("type") String type) {
+		Map<String, Object> articles = articleservice.getSelfOrLikeArticles(currentPage, pageNumber, type);
 		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), articles);
 	}
 
@@ -62,14 +73,14 @@ public class ArticleController {
 	@ApiImplicitParam(name = "articleId", value = "文章id", required = true, dataType = "int", paramType = "path")
 	@GetMapping("/{articleId:^\\d+$}")
 	public ReturnMessage getArticleInfo(@PathVariable("articleId") int articleId) {
-			ArticleVo articles = articleservice.getArticleInfoById(articleId);
-			Map<String,Object> map = new HashMap<>();
-			map.put("id", articles.getArticleId());
-			map.put("name", articles.getArticleTitle());
-			getHotArticle();
-			redisserviceimpl.IncrementScore(LocalDate.now().toString(),map, -1);
-			redisserviceimpl.IncrementScore(LocalDate.now().minusDays(6)+"-"+LocalDate.now(),map, -1);
-			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), articles);
+		ArticleVo articles = articleservice.getArticleInfoById(articleId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", articles.getArticleId());
+		map.put("name", articles.getArticleTitle());
+		getHotArticle();
+		redisserviceimpl.IncrementScore(LocalDate.now().toString(), map, -1);
+		redisserviceimpl.IncrementScore(LocalDate.now().minusDays(6) + "-" + LocalDate.now(), map, -1);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), articles);
 	}
 
 	@ApiOperation(value = "文章模块", notes = "根据id删除文章", httpMethod = "DELElTE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -87,28 +98,28 @@ public class ArticleController {
 
 	@ApiOperation(value = "文章模块", notes = "添加或修改文章", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@PutMapping
-	public ReturnMessage insertAndUpdateArticle(@RequestBody ArticleVo articleVo,HttpServletRequest request) {
-		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+	public ReturnMessage insertAndUpdateArticle(@RequestBody ArticleVo articleVo, HttpServletRequest request) {
+		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		articleVo.setUserId(userDetails.getUserId());
 		articleservice.insertAndUpdateArticle(articleVo);
 		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
 	}
-	
+
 	@ApiOperation(value = "文章模块", notes = "获取热门文章", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@GetMapping("/hot")
 	public ReturnMessage getHotArticle() {
-		String hotsName=LocalDate.now().minusDays(6)+"-"+LocalDate.now();
-		if(redisserviceimpl.exists(hotsName)){
-			Set<Object> hotList = redisserviceimpl.zRange(hotsName,0,9);
+		String hotsName = LocalDate.now().minusDays(6) + "-" + LocalDate.now();
+		if (redisserviceimpl.exists(hotsName)) {
+			Set<Object> hotList = redisserviceimpl.zRange(hotsName, 0, 9);
 			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), hotList);
-		}else{
-			List<String> hosts=new ArrayList<>();
-			for(int i=0;i<7;i++){
+		} else {
+			List<String> hosts = new ArrayList<>();
+			for (int i = 0; i < 7; i++) {
 				hosts.add(LocalDate.now().minusDays(i).toString());
 			}
 			redisserviceimpl.unionStore(hosts, hotsName);
-			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), redisserviceimpl.zRange(hotsName,0,9));
-			
+			return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), redisserviceimpl.zRange(hotsName, 0, 9));
+
 		}
 	}
 }
