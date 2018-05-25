@@ -22,7 +22,8 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/")
-	public String LoginSuccess(){
-		return "ok";
+	public String LoginSuccess(HttpServletResponse response){
+		response.setContentType("text/html");
+		return "<script>window.location.href='http://www.5icoding.top'</script>";
 	}
 }
