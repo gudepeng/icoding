@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/icoding.iml" filepath="$PROJECT_DIR$/icoding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/icoding-reptile/icoding-reptile.iml" filepath="$PROJECT_DIR$/icoding-reptile/icoding-reptile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/icoding-security/icoding-security.iml" filepath="$PROJECT_DIR$/icoding-security/icoding-security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/icoding-util/icoding-util.iml" filepath="$PROJECT_DIR$/icoding-util/icoding-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/icoding-web/icoding-web.iml" filepath="$PROJECT_DIR$/icoding-web/icoding-web.iml" />
+    </modules>
+  </component>
+</project>

@@ -34,7 +34,7 @@ public interface CommentMapper {
 			@Result(property = "commentContent", column = "comment_content") })
 	@Select("<script> "
 			+ "select comment_id,topic_type,topic_id,comment_reply,from_user_id,comment_time,comment_content "
-			+ "from comment where topic_type = #{topicType} and topic_id = #{topicId}" + "</script> ")
+			+ "from comment where topic_type = #{topicType} and topic_id = #{topicId} order by comment_time desc" + "</script> ")
 	List<CommentVo> selectCommentsById(@Param("topicType")String topicType,@Param("topicId")Integer topicId);
 	
 	/**

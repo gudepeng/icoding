@@ -61,7 +61,7 @@ public class CommentAndReplyController {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		commentVo.setFromUserId(userDetails.getUserId());
 		commentandreplyservice.insertOrUpdateComment(commentVo);
-		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), commentVo);
 	}
 	
 	@ApiOperation(value = "评论回复功能", notes = "添加回复", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
