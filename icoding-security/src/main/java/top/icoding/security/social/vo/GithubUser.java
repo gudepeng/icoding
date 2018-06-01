@@ -73,6 +73,7 @@ public class GithubUser {
 	private String following;
 	private String created_at;
 	private String updated_at;
+	private String node_id;
 	
 	public String getLogin() {
 		return login;
@@ -253,6 +254,12 @@ public class GithubUser {
 	}
 	public void setUpdated_at(String updated_at) {
 		this.updated_at = updated_at;
+	}
+	public String getNode_id() {
+		return node_id;
+	}
+	public void setNode_id(String node_id) {
+		this.node_id = node_id;
 	}
 	
 }
