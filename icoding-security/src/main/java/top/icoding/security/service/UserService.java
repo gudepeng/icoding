@@ -19,12 +19,19 @@ public interface UserService {
 	 * */
 	List<UserVo> getUserByUsername(String userName);
 	/**
-	 * 根据usergithub获取user
+	 * 根据userid获取user
 	 * 
 	 * @param userName 用户名
 	 * @return 返回用户集合
 	 * */
 	UserVo getUserByUserid(int userId);
+	/**
+	 * 根据socialuserid获取user
+	 * 
+	 * @param userName 用户名
+	 * @return 返回用户集合
+	 * */
+	List<UserVo> getUserBySocialUserid(String userId);
 	/**
 	 * 创建用户
 	 * 

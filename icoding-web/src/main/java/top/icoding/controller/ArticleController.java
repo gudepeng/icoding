@@ -102,7 +102,7 @@ public class ArticleController {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		articleVo.setUserId(userDetails.getUserId());
 		articleservice.insertAndUpdateArticle(articleVo);
-		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), null);
+		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), articleVo.getArticleId());
 	}
 
 	@ApiOperation(value = "文章模块", notes = "获取热门文章", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

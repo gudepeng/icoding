@@ -1,4 +1,4 @@
-package top.icoding.security.config;
+/*package top.icoding.security.config;
 
 import java.io.IOException;
 
@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-/**
+*//**
  * @author 我是金角大王
  * @date 2018年1月20日 上午11:48:28
- */
+ *//*
 @Component
 public class SimpleCORSFilter implements Filter {
 	@Override
@@ -40,4 +40,4 @@ public class SimpleCORSFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
-}
+}*/

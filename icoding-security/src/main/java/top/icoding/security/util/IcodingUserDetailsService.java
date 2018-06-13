@@ -35,7 +35,7 @@ public class IcodingUserDetailsService implements UserDetailsService,SocialUserD
         list.add(au);
         
         SessionUser sessionuser=new SessionUser(user.getUserName(),user.getUserPwd(), list);
-        sessionuser.setUserId(user.getUserId().toString());
+        sessionuser.setUserId(user.getUserId());
         sessionuser.setDisplayName(user.getUserName());
         sessionuser.setUserPhone(user.getUserPhone());
         sessionuser.setUserSex(user.getUserSex());
@@ -49,12 +49,19 @@ public class IcodingUserDetailsService implements UserDetailsService,SocialUserD
 
 	@Override
 	public SocialUserDetails loadUserByUserId(String userid) throws UsernameNotFoundException {
+		List<UserVo> listuser=userservice.getUserBySocialUserid(userid);
+		if(listuser.size()==0){
+			throw new UsernameNotFoundException("not find userId:"+userid);
+		}
+		UserVo user=listuser.get(0);
+		
 		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();  
         GrantedAuthority au = new SimpleGrantedAuthority("AUTH_LOGIN"); 
         list.add(au);
-        
         SessionUser sessionuser=new SessionUser(userid,"password", list);
         sessionuser.setUserId(userid);
+        sessionuser.setDisplayName(user.getUserName());
+        sessionuser.setUserImageUrl(user.getUserImageUrl());
 		return sessionuser;
 	}
 

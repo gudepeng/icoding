@@ -40,4 +40,10 @@ public class UserServiceImpl implements UserService {
 		return users.get(0);
 	}
 
+
+	@Override
+	public List<UserVo> getUserBySocialUserid(String userId) {
+		return usermapper.selectSocialUserByUserId(userId);
+	}
+
 }

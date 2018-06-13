@@ -73,5 +73,19 @@ public interface UserMapper {
 			+ " values(#{userName},#{userPwd},#{userPhone},#{userEmail},#{userSex},#{userAddress},#{userDescription},#{userImageUrl},#{userRankId},#{userLock})")
 	@SelectKey(statement = "select LAST_INSERT_ID()", keyProperty = "userId", keyColumn = "user_id", resultType = String.class, before = false)
 	int insertUser(UserVo user);
+	
+	/**
+	 * 根据socialuserid获取user
+	 * 
+	 * @param userId social用户Id
+	 * @return 返回用户集合
+	 * */
+	@Results(id = "selectSocialUserByUserId", value = {
+			@Result(property = "userId", column = "userId", id = true),
+			@Result(property = "userName", column = "displayName"),
+			@Result(property = "userImageUrl", column = "imageUrl")})
+	@Select("select userId, displayName, imageUrl "
+			+ "from userconnection where userId = #{userId}")
+	List<UserVo> selectSocialUserByUserId(String userId);
 
 }
