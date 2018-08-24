@@ -83,7 +83,7 @@ public class ArticleController {
 		return new ReturnMessage(ReturnMessageType.SUCCESS.msg(), articles);
 	}
 
-	@ApiOperation(value = "文章模块", notes = "根据id删除文章", httpMethod = "DELElTE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ApiOperation(value = "文章模块", notes = "根据id删除文章", httpMethod = "DELETE", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiImplicitParam(name = "articleId", value = "文章id", required = true, dataType = "int", paramType = "path")
 	@DeleteMapping("/{articleId:^\\d+$}")
 	public ReturnMessage delArticle(@PathVariable("articleId") int articleId) {
