@@ -14,21 +14,21 @@ spring:
     store-type: redis
   redis:
     database: 0
-    host: 39.106.214.109
-    port: 6379
-    password: icoding
+    host:
+    port:
+    password:
   datasource:
-    url: jdbc:mysql://39.106.214.109:3306/icoding?characterEncoding=utf8&useSSL=true
-    username: icoding
-    password: icoding
+    url:
+    username:
+    password:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
 social:
-  qqAppId: 101452871
-  qqAppSecret: be505fe2be87a95faefddcbd10c3b25c
-  githubAppId: 8347be17a991df62767f
-  githubAppSecret: 9f502ba54524fe6f7977db90b8ed38d887adf7d0
+  qqAppId:
+  qqAppSecret:
+  githubAppId:
+  githubAppSecret:
 qiniu:
-  accessKey: uZ_EKH3PFdDR4jw9Hsp1v6Zb6BiqPueoD2Xd1IEp
-  secretKey: wWHCOsSbPIGGtCCSOzto0anPgUpkzgd92lfCE290
-  bucket: icode
+  accessKey:
+  secretKey:
+  bucket:
