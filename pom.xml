@@ -42,12 +42,6 @@
 				<artifactId>icoding-util</artifactId>
 				<version>${icoding.versuin}</version>
 			</dependency>
-			<!-- jjwt -->
-			<dependency>
-				<groupId>io.jsonwebtoken</groupId>
-				<artifactId>jjwt</artifactId>
-				<version>${jjwt.version}</version>
-			</dependency>
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid-spring-boot-starter</artifactId>

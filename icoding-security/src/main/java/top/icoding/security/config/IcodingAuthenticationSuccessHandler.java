@@ -26,13 +26,7 @@ public class IcodingAuthenticationSuccessHandler implements AuthenticationSucces
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		response.setStatus(200);
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-		response.setHeader("Access-Control-Max-Age", "3600");
-		response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Authorization");
-		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter writer = response.getWriter();
 		writer.write(objectMapper.writeValueAsString(authentication));
 		writer.flush();

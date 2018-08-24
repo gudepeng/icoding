@@ -15,7 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -97,7 +97,7 @@ public class ArticleController {
 	}
 
 	@ApiOperation(value = "文章模块", notes = "添加或修改文章", httpMethod = "PUT", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@PutMapping
+	@PostMapping
 	public ReturnMessage insertAndUpdateArticle(@RequestBody ArticleVo articleVo, HttpServletRequest request) {
 		SessionUser userDetails = (SessionUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		articleVo.setUserId(userDetails.getUserId());

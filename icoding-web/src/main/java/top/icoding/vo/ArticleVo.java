@@ -34,6 +34,10 @@ public class ArticleVo {
     private String articleContent;
     
     private Integer likeId;
+    
+    private Integer article_type;
+    
+    private String artucle_share_url;
 
     public Integer getArticleId() {
         return articleId;
@@ -145,6 +149,22 @@ public class ArticleVo {
 
 	public void setLikeId(Integer likeId) {
 		this.likeId = likeId;
+	}
+
+	public Integer getArticle_type() {
+		return article_type;
+	}
+
+	public void setArticle_type(Integer article_type) {
+		this.article_type = article_type;
+	}
+
+	public String getArtucle_share_url() {
+		return artucle_share_url;
+	}
+
+	public void setArtucle_share_url(String artucle_share_url) {
+		this.artucle_share_url = artucle_share_url;
 	}
     
 }
